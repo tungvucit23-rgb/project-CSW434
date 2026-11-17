@@ -4,7 +4,9 @@ Repository: [tungvucit23-rgb/project-CSW434](https://github.com/tungvucit23-rgb/
 
 ## Phạm vi xuất bản
 
-Commit đầu `cca1dee` chỉ có README do lệnh staging ban đầu là `git add README.md`. Source hiện có được thêm bằng commit mới, không reset/amend commit đầu, không đổi remote hoặc force-push. Không tạo lại repository, không phát triển feature hoặc chuyển Firebase trong phase này.
+Commit đầu `cca1dee` chỉ có README do lệnh staging ban đầu là `git add README.md`. Commit source **`24ab1dd9b244749dcde950373bb8655d38f298ea`** đã được push bình thường lên `origin/main` và kiểm chứng bằng `git ls-remote`; không reset/amend commit đầu, không đổi remote hoặc force-push. Commit tài liệu kế tiếp ghi kết quả clone, giữ nguyên source đã kiểm. Không tạo lại repository, không phát triển feature hoặc chuyển Firebase trong phase này.
+
+Source commit có **186 tệp tracked** (source, configs, tests và docs), khoảng **2,75 MB** Git blobs; file lớn nhất là lockfile, dưới 0,4 MB. Không có file vượt ngưỡng audit 10 MiB.
 
 Các thành phần cần có khi clone:
 
@@ -42,15 +44,33 @@ Report máy đọc được nằm trong `artifacts/phase5/source-publication-aud
 
 ## Kiểm chứng clean clone
 
-Phase 5 thực hiện kiểm chứng clone từ remote sau commit source. Kết quả sẽ được ghi bằng commit tài liệu tiếp theo sau khi các lệnh thật kết thúc; không lấy node_modules trên máy owner làm bằng chứng `npm ci` ở clone.
+Đã kiểm ngày **17/11/2026** trên Windows, Node **24.18.0**, npm **11.16.0**. Clone HTTPS trực tiếp từ GitHub vào thư mục tạm mới **ngoài workspace gốc**, ở commit source `24ab1dd`. Trước cài không có node_modules hoặc `.env`; không copy chúng từ máy owner. Npm có dùng cache tải package bình thường. Một lần cài trên local Git clone đã chạy trước lúc xác thực push, nhưng kết quả bảng dưới là từ **clone GitHub riêng** sau khi xuất bản.
 
-| Hạng mục | Trạng thái trước lần push source |
+| Hạng mục / lệnh thực | Kết quả trên clone GitHub |
 |---|---|
-| Clone GitHub vào thư mục trống, không copy node_modules/.env | Chờ xuất bản source và kiểm tra |
-| `npm.cmd ci` với lockfile | Chờ kiểm tra trên clone |
-| Typecheck mobile + server, tests được ghi ở TEAM_SETUP | Chờ kiểm tra trên clone |
-| Frontend Mock Mode, 40 route và backend source | Chờ kiểm tra trên clone |
-| Links/API contract/Firebase plan | Có validator; sẽ chạy lại ở clone |
+| `git clone --branch main https://github.com/tungvucit23-rgb/project-CSW434.git` | PASS; HEAD trùng commit source đã push |
+| `npm.cmd ci --no-fund --no-audit` | PASS; cài 733 packages từ lockfile, exit 0 |
+| `npm.cmd run typecheck` | PASS mobile + server |
+| `npm.cmd test -w @di-chung/mobile` | 66 pass, 0 fail |
+| `npm.cmd test -w @di-chung/server` | 35 pass, 0 fail |
+| `npm.cmd run test:llm` | 4 pass; local HTTP model stub, không gọi paid model |
+| `npm.cmd run test:integration` | 16 pass; Express/Socket.io với PGlite isolated, không dùng DB làm việc |
+| `npm.cmd run web -w @di-chung/mobile -- --port 8097` | PASS với CI=1, BROWSER=none, EXPO_PUBLIC_DATA_SOURCE=mock; không cần backend/Firebase/secrets |
+| `APP_URL=http://127.0.0.1:8097 npm run test:ui -w @di-chung/mobile` | 18 recorded checks pass, đủ 40 route (37 authenticated + 3 public), 0 backend requests, 0 page errors |
+| `npm.cmd run build:web -w @di-chung/mobile` | PASS, tạo static export từ source clone |
+| `node apps/mobile/tests/export-smoke.mjs` | PASS: auth/Home, map 80 điểm, production controls, 0 backend requests/errors |
+| `node scripts/team-audit.mjs` | 40 route, 38 Express handlers, 20 SQL tables; manifest/lock không lệch |
+| `node scripts/validate-team-handoff.mjs` | PASS: đủ 11 docs bắt buộc, 143 internal links trong bộ team |
+| `node scripts/validate-source-publication.mjs --tracked` | PASS: 186 file, 199 internal Markdown links toàn source, không thiếu target/source |
+| `git status --short --branch` sau tests | Working tree sạch; generated files chỉ nằm trong các thư mục ignored |
+
+Source commit cũng có [GitHub Actions Check project thành công](https://github.com/tungvucit23-rgb/project-CSW434/actions/runs/44034747111), theo workflow Ubuntu/Node22 trong repo: npm ci, typecheck, server/mobile tests, audit/docs, LLM stub, SQL integration và web export. Đây là kiểm chứng CI thực, không phải suy đoán từ file YAML.
+
+Log/JSON đã gom về `artifacts/phase5/` tại máy kiểm chứng (ignored): `github-install.log`, `typecheck.log`, `mobile-tests.log`, `server-tests.log`, `api-integration.log`, `llm-contract.log`, `browser-journey.log`, `github-browser-results.json`, `web-build.log`, `production-export.log`, `github-source-audit.json` và `github-document-validation.json`. Source repo có scripts/tests để mỗi thành viên chạy lại; không cần tải artifacts của owner.
+
+Cài đặt có cảnh báo deprecation từ dependency gián tiếp và npm allow-scripts cho esbuild trên máy kiểm chứng; tests thực tế vẫn pass. Expo CLI cũng đề xuất patch Expo/location mới hơn và dùng DevTools fallback khi tải thất bại. Phase 5 giữ nguyên lockfile, không tự upgrade dependencies. Audit phase này kiểm source/secrets, **không phải chứng nhận không có dependency vulnerabilities**; lệnh install phía trên tắt npm registry audit để tách riêng phạm vi kiểm chứng cài đặt.
+
+Không còn blocker xuất bản/clone sau khi owner hoàn tất đăng nhập Git Credential Manager. GitHub CLI chưa đăng nhập không chặn Git HTTPS đã xác thực. Quyền push từng thành viên và branch protection vẫn là việc owner cấu hình; Firebase/runtime integration là công việc kế tiếp.
 
 Không coi test SQL/PGlite hoặc mock là test Firebase. Chưa có SDK/Admin/Rules/indexes/migration Firebase hoạt động. Native full journey, paid AI/weather integration và production release không nằm trong Phase 5.
 
