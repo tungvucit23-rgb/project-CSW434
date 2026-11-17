@@ -1,0 +1,2287 @@
+{
+  "status": "PLANNED_NOT_IMPLEMENTED",
+  "schemaVersion": 1,
+  "collections": [
+    {
+      "path": "users/{uid}",
+      "purpose": "Profile; ID document bằng Firebase UID, không phải nơi lưu credential.",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "validation": "2–80 ký tự, trim; API PATCH vẫn yêu cầu name."
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "validation": "Email canonical từ Firebase Auth, không tự sửa bằng client payload."
+        },
+        {
+          "name": "avatarColor",
+          "type": "string",
+          "required": true,
+          "validation": "Hex #RRGGBB."
+        },
+        {
+          "name": "status",
+          "type": "enum(ACTIVE,PENDING_RESET,DISABLED)",
+          "required": true,
+          "validation": "Backend/Admin quyết định, không thay group role."
+        },
+        {
+          "name": "legacyUserId",
+          "type": "string",
+          "required": false,
+          "validation": "ID cũ khi cần mapping; không thay uid một phía."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve lúc import."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Trusted server time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "name": "Minh Anh",
+        "email": "leader@dichung.demo",
+        "avatarColor": "#397A68",
+        "status": "ACTIVE",
+        "legacyUserId": "demo-leader",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "Firebase Authentication",
+        "members",
+        "comments",
+        "notifications"
+      ],
+      "permission": "REST own-profile; Admin provision; direct SDK deny.",
+      "indexes": "Document get; uniqueness email thuộc Firebase Auth."
+    },
+    {
+      "path": "cities/{cityId}",
+      "purpose": "Catalogue thành phố; ID dalat/vungtau giữ nguyên.",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "validation": "Tên có nguồn."
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "validation": "Hữu hạn, -90..90."
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "validation": "Hữu hạn, -180..180."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": true,
+          "validation": "Asia/Ho_Chi_Minh với hai city hiện tại."
+        },
+        {
+          "name": "imageUrl",
+          "type": "string",
+          "required": true,
+          "validation": "URL công khai hoặc rỗng, không token."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Trusted/import timestamp."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Trusted/import timestamp."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "name": "Đà Lạt",
+        "latitude": 11.9404,
+        "longitude": 108.4583,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "imageUrl": "",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "places",
+        "groups"
+      ],
+      "permission": "Public catalogue read được phép sau review; chỉ Admin/seed write.",
+      "indexes": "Automatic name; API có auth theo contract cũ."
+    },
+    {
+      "path": "places/{placeId}",
+      "purpose": "Một record catalogue, gồm record retired để giữ foreign references.",
+      "fields": [
+        {
+          "name": "cityId",
+          "type": "string",
+          "required": true,
+          "validation": "City tồn tại, giữ ID cũ."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "validation": "Tên nguồn, không instruction AI."
+        },
+        {
+          "name": "category",
+          "type": "string",
+          "required": true,
+          "validation": "Tên category catalogue; không dùng enum Discovery thay tên."
+        },
+        {
+          "name": "environment",
+          "type": "enum(INDOOR,OUTDOOR)",
+          "required": true,
+          "validation": "Ước tính nếu chưa xác minh, thể hiện trong visitorInfo."
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "validation": "Hữu hạn/range; không tạo tọa độ mới cho record chưa xác minh."
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "validation": "Hữu hạn/range."
+        },
+        {
+          "name": "priceVnd",
+          "type": "integer",
+          "required": true,
+          "validation": ">=0, legacy planning assumption; 0 không có nghĩa vé miễn phí."
+        },
+        {
+          "name": "durationMin",
+          "type": "integer",
+          "required": true,
+          "validation": ">0, giả định nếu visitorInfo không có duration."
+        },
+        {
+          "name": "openHour",
+          "type": "number",
+          "required": true,
+          "validation": "Legacy planning assumption, 0..23."
+        },
+        {
+          "name": "closeHour",
+          "type": "number",
+          "required": true,
+          "validation": ">openHour, <=24."
+        },
+        {
+          "name": "imageUrl",
+          "type": "string",
+          "required": true,
+          "validation": "Ảnh có nguồn hoặc minh họa/rỗng."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": true,
+          "validation": "Preserve mô tả/provenance."
+        },
+        {
+          "name": "dataQuality",
+          "type": "string",
+          "required": true,
+          "validation": "Phân biệt OSM và tham khảo cũ."
+        },
+        {
+          "name": "geographyVerified",
+          "type": "boolean",
+          "required": true,
+          "validation": "True chỉ sau đối chiếu source, không chỉ finite coordinates."
+        },
+        {
+          "name": "sourceUrl",
+          "type": "string or null",
+          "required": true,
+          "validation": "Nguồn OSM/public được giữ khi có."
+        },
+        {
+          "name": "sourceId",
+          "type": "string",
+          "required": false,
+          "validation": "ID node/relation OSM gốc."
+        },
+        {
+          "name": "coordinateKind",
+          "type": "string",
+          "required": false,
+          "validation": "OSM_NODE hoặc OSM_BOUNDING_BOX_CENTER; center không phải cổng vào."
+        },
+        {
+          "name": "sourceTimestamp",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "Ngày snapshot source, không giả làm ngày kiểm thực địa."
+        },
+        {
+          "name": "catalogVisible",
+          "type": "boolean",
+          "required": true,
+          "validation": "Ẩn record retired trong listing; detail/history vẫn giữ."
+        },
+        {
+          "name": "visitorInfo",
+          "type": "map",
+          "required": true,
+          "validation": "Bốn trường nullable và environmentEstimated bên dưới."
+        },
+        {
+          "name": "visitorInfo.entranceFeeVnd",
+          "type": "integer or null",
+          "required": true,
+          "validation": "null=unknown, >=0 nếu có nguồn."
+        },
+        {
+          "name": "visitorInfo.openingHours",
+          "type": "string or null",
+          "required": true,
+          "validation": "Giờ có nguồn; null nếu thiếu."
+        },
+        {
+          "name": "visitorInfo.visitDurationMin",
+          "type": "integer or null",
+          "required": true,
+          "validation": ">0 hoặc null."
+        },
+        {
+          "name": "visitorInfo.environmentEstimated",
+          "type": "boolean",
+          "required": true,
+          "validation": "Không đánh đồng phân loại ước tính với xác minh."
+        },
+        {
+          "name": "visitorInfo.verifiedAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "null nếu chưa xác minh thông tin khách tham quan."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Ngày cập nhật record, độc lập source timestamp."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "cityId": "dalat",
+        "name": "Hồ Xuân Hương",
+        "category": "Thiên nhiên",
+        "environment": "OUTDOOR",
+        "latitude": 11.9450109,
+        "longitude": 108.445363,
+        "priceVnd": 0,
+        "durationMin": 60,
+        "openHour": 8,
+        "closeHour": 20,
+        "imageUrl": "",
+        "description": "Tâm hình học đối tượng OSM; chưa xác minh cổng vào.",
+        "dataQuality": "OSM",
+        "geographyVerified": true,
+        "sourceUrl": "https://www.openstreetmap.org/relation/2390139",
+        "sourceId": "relation/2390139",
+        "coordinateKind": "OSM_BOUNDING_BOX_CENTER",
+        "sourceTimestamp": "2026-11-10T05:57:04Z",
+        "catalogVisible": true,
+        "visitorInfo": {
+          "entranceFeeVnd": null,
+          "openingHours": null,
+          "visitDurationMin": null,
+          "environmentEstimated": true,
+          "verifiedAt": null
+        },
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "cities",
+        "wishlist",
+        "plans.items"
+      ],
+      "permission": "Public-read fields only; write Admin/curated seed, không user sửa coordinates.",
+      "indexes": "I2; exempt description/visitorInfo/raw text không query."
+    },
+    {
+      "path": "groups/{gid}",
+      "purpose": "Group authoritative; role của caller được tính ở serializer.",
+      "fields": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "validation": "2–100 ký tự theo Zod hiện tại."
+        },
+        {
+          "name": "cityId",
+          "type": "string",
+          "required": true,
+          "validation": "City tồn tại; API create hiện chỉ dalat/vungtau."
+        },
+        {
+          "name": "tripDate",
+          "type": "string YYYY-MM-DD",
+          "required": true,
+          "validation": "Ngày VN, không Timestamp."
+        },
+        {
+          "name": "startHour",
+          "type": "integer",
+          "required": true,
+          "validation": "0<=start<end, <=23 theo group Zod hiện tại."
+        },
+        {
+          "name": "endHour",
+          "type": "integer",
+          "required": true,
+          "validation": "1..24."
+        },
+        {
+          "name": "budgetPerPersonVnd",
+          "type": "integer",
+          "required": true,
+          "validation": "0..100000000 theo API hiện tại; UI có thể kiểm dương."
+        },
+        {
+          "name": "inviteCode",
+          "type": "string",
+          "required": true,
+          "validation": "Code normalized, chỉ thành viên qua REST được xem."
+        },
+        {
+          "name": "inviteExpiresAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Kiểm expiry server, không trông chờ TTL."
+        },
+        {
+          "name": "currentPlanId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Plan cùng group và đã được duyệt; mode change clear pointer như SQL."
+        },
+        {
+          "name": "mode",
+          "type": "enum(DEMO,LIVE)",
+          "required": true,
+          "validation": "Không lẫn cache/verification."
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "required": true,
+          "validation": ">=1, group update/apply tăng; expectedRevision hiện advisory overwrite, không strict CAS."
+        },
+        {
+          "name": "leaderId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp đúng một ACTIVE LEADER member."
+        },
+        {
+          "name": "memberCount",
+          "type": "integer",
+          "required": true,
+          "validation": "Counter transaction; serializer có thể kiểm lại active count."
+        },
+        {
+          "name": "membershipRevision",
+          "type": "integer",
+          "required": true,
+          "validation": ">=0; thay đổi membership, dùng chốt electorate."
+        },
+        {
+          "name": "preferencesRevision",
+          "type": "integer",
+          "required": true,
+          "validation": ">=0; invalidate generation/cache."
+        },
+        {
+          "name": "nextPlanVersion",
+          "type": "integer",
+          "required": true,
+          "validation": ">=1; cấp version duy nhất trong transaction."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve import."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Trusted server time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "name": "Một ngày Đà Lạt",
+        "cityId": "dalat",
+        "tripDate": "2026-11-17",
+        "startHour": 8,
+        "endHour": 20,
+        "budgetPerPersonVnd": 600000,
+        "inviteCode": "DICHUNG",
+        "inviteExpiresAt": "2026-12-17T00:00:00Z",
+        "currentPlanId": null,
+        "mode": "DEMO",
+        "revision": 1,
+        "leaderId": "demo-leader",
+        "memberCount": 3,
+        "membershipRevision": 1,
+        "preferencesRevision": 0,
+        "nextPlanVersion": 2,
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "members",
+        "preferences",
+        "plans",
+        "uniqueKeys"
+      ],
+      "permission": "Active member đọc; leader update constraints; service create/join/apply; direct SDK deny.",
+      "indexes": "GET groups đi qua I1 rồi get group, không query role field trên group."
+    },
+    {
+      "path": "groups/{gid}/members/{uid}",
+      "purpose": "Active/left membership; uid là natural key, không nhân đôi.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp path gid."
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp path uid và users/Auth."
+        },
+        {
+          "name": "role",
+          "type": "enum(LEADER,MEMBER)",
+          "required": true,
+          "validation": "Chỉ group service thay đổi, một active leader."
+        },
+        {
+          "name": "status",
+          "type": "enum(ACTIVE,LEFT)",
+          "required": true,
+          "validation": "Không tự xóa ballot snapshot khi LEFT."
+        },
+        {
+          "name": "joinedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Giữ semantics rejoin/import."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Server time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "userId": "demo-leader",
+        "role": "LEADER",
+        "status": "ACTIVE",
+        "joinedAt": "2026-11-17T00:00:00.000Z",
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "users",
+        "groups",
+        "votes"
+      ],
+      "permission": "REST member view; Admin group service write; direct SDK deny.",
+      "indexes": "I1 collection-group members; direct get uid để authorize."
+    },
+    {
+      "path": "groups/{gid}/preferences/{uid}",
+      "purpose": "Sở thích duy nhất của một thành viên trong nhóm.",
+      "fields": [
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp path/caller, membership active."
+        },
+        {
+          "name": "categories",
+          "type": "array<string>",
+          "required": true,
+          "validation": "Tên category thực của city, unique, max 10."
+        },
+        {
+          "name": "environmentPreference",
+          "type": "enum(ANY,INDOOR,OUTDOOR)",
+          "required": true,
+          "validation": "Default ANY."
+        },
+        {
+          "name": "travelStyles",
+          "type": "array<string>",
+          "required": true,
+          "validation": "Enum TRAVEL_STYLES, unique max 7."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Server/import time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "userId": "demo-leader",
+        "categories": [
+          "Thiên nhiên"
+        ],
+        "environmentPreference": "ANY",
+        "travelStyles": [
+          "RELAXATION"
+        ],
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "members",
+        "AI candidates"
+      ],
+      "permission": "Caller đọc/sửa qua REST; Backend aggregate; direct SDK deny.",
+      "indexes": "Direct doc get; group subcollection scan bounded cho AI."
+    },
+    {
+      "path": "groups/{gid}/wishlist/{placeId}",
+      "purpose": "Natural key ngăn add trùng; API trả Place[], không metadata này.",
+      "fields": [
+        {
+          "name": "placeId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp doc ID, place cùng city group."
+        },
+        {
+          "name": "addedBy",
+          "type": "string",
+          "required": true,
+          "validation": "UID active member lúc add."
+        },
+        {
+          "name": "note",
+          "type": "string",
+          "required": true,
+          "validation": "Preserve SQL note, default rỗng."
+        },
+        {
+          "name": "legacyId",
+          "type": "string",
+          "required": false,
+          "validation": "UUID row SQL để không mất ID trong manifest."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve thứ tự thêm."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "placeId": "dalat-01",
+        "addedBy": "demo-leader",
+        "note": "",
+        "legacyId": "<legacy-wishlist-id>",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "places",
+        "users"
+      ],
+      "permission": "Member REST add/remove; direct SDK deny.",
+      "indexes": "Automatic createdAt, direct place key."
+    },
+    {
+      "path": "plans/{pid}",
+      "purpose": "Proposal/lịch; DTO tổng hợp thêm Place, totals và myVote theo caller.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string",
+          "required": true,
+          "validation": "Group tồn tại; không đổi sau tạo."
+        },
+        {
+          "name": "version",
+          "type": "integer",
+          "required": true,
+          "validation": "Unique theo group qua nextPlanVersion."
+        },
+        {
+          "name": "basePlanId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Base cùng group, khớp lúc apply."
+        },
+        {
+          "name": "kind",
+          "type": "enum(INITIAL,RAIN_CHANGE,MANUAL_CHANGE)",
+          "required": true,
+          "validation": "Giữ kind cũ; chưa có API generate MANUAL_CHANGE."
+        },
+        {
+          "name": "status",
+          "type": "enum(DRAFT,VOTING,APPROVED,REJECTED,EXPIRED,STALE)",
+          "required": true,
+          "validation": "Chỉ transaction/service điều khiển."
+        },
+        {
+          "name": "engine",
+          "type": "enum(LLM,RULE_BASED)",
+          "required": true,
+          "validation": "DEMO là flag khác."
+        },
+        {
+          "name": "demo",
+          "type": "boolean",
+          "required": true,
+          "validation": "Giữ provenance."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": true,
+          "validation": "Validated explanation."
+        },
+        {
+          "name": "constraints",
+          "type": "map",
+          "required": true,
+          "validation": "Snapshot cityId/tripDate/startHour/endHour/budgetPerPersonVnd/mode."
+        },
+        {
+          "name": "items",
+          "type": "array<PlanItemCore>",
+          "required": true,
+          "validation": "Giữ item id/placeId/position/startTime/endTime/travelMin/costVnd/reason/factIds; thời gian DB là Timestamp; place DTO hydrate riêng."
+        },
+        {
+          "name": "eligibleCount",
+          "type": "integer",
+          "required": true,
+          "validation": "Ballot snapshot count, gồm choice=null."
+        },
+        {
+          "name": "requiredYesVotes",
+          "type": "integer",
+          "required": true,
+          "validation": "floor(eligibleCount/2)+1."
+        },
+        {
+          "name": "yesVotes",
+          "type": "integer",
+          "required": true,
+          "validation": ">=0, vote delta transaction."
+        },
+        {
+          "name": "noVotes",
+          "type": "integer",
+          "required": true,
+          "validation": ">=0, yes+no<=eligible."
+        },
+        {
+          "name": "createdBy",
+          "type": "string",
+          "required": true,
+          "validation": "UID leader/authorized service."
+        },
+        {
+          "name": "llmRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Tham chiếu aiExecutions nếu có."
+        },
+        {
+          "name": "weatherCheckId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Tham chiếu weatherChecks nếu có."
+        },
+        {
+          "name": "demoRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Preserve SQL demo grouping."
+        },
+        {
+          "name": "deadline",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "30 phút ở backend hiện tại, preserve import deadline."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Server/import time."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Server time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "version": 1,
+        "basePlanId": null,
+        "kind": "INITIAL",
+        "status": "VOTING",
+        "engine": "RULE_BASED",
+        "demo": true,
+        "summary": "Ví dụ shape; không phải output AI thật.",
+        "constraints": {
+          "cityId": "dalat",
+          "tripDate": "2026-11-17",
+          "startHour": 8,
+          "endHour": 20,
+          "budgetPerPersonVnd": 600000,
+          "mode": "DEMO"
+        },
+        "items": [
+          {
+            "id": "<plan-item-id>",
+            "placeId": "dalat-01",
+            "position": 0,
+            "startTime": "2026-11-17T01:00:00Z",
+            "endTime": "2026-11-17T02:00:00Z",
+            "travelMin": 0,
+            "costVnd": 0,
+            "reason": "Chi phí nguồn chưa biết.",
+            "factIds": []
+          }
+        ],
+        "eligibleCount": 3,
+        "requiredYesVotes": 2,
+        "yesVotes": 0,
+        "noVotes": 0,
+        "createdBy": "demo-leader",
+        "llmRunId": null,
+        "weatherCheckId": null,
+        "demoRunId": "example-only",
+        "deadline": "2026-11-17T00:30:00Z",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "votes",
+        "places",
+        "weatherChecks",
+        "aiExecutions"
+      ],
+      "permission": "Member REST read; leader propose; service vote/apply; direct client read/write deny.",
+      "indexes": "I3/I4/I5; exempt items/constraints text không query."
+    },
+    {
+      "path": "plans/{pid}/votes/{uid}",
+      "purpose": "Một ballot cho một snapshot voter, kể cả chưa vote.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp plan group."
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp uid; phải có lúc chốt electorate."
+        },
+        {
+          "name": "choice",
+          "type": "enum(YES,NO) or null",
+          "required": true,
+          "validation": "null là chưa trả lời, không tự YES."
+        },
+        {
+          "name": "votedAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "null trước vote."
+        },
+        {
+          "name": "eligibleAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Thời điểm chốt snapshot."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "userId": "demo-leader",
+        "choice": null,
+        "votedAt": null,
+        "eligibleAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "plans",
+        "members",
+        "users"
+      ],
+      "permission": "Snapshot creation/service only; caller REST vote bản thân và còn ACTIVE; direct SDK deny.",
+      "indexes": "Direct doc; không query membership mới để tính eligibleCount."
+    },
+    {
+      "path": "comments/{cid}",
+      "purpose": "Bình luận theo đúng một target; global ID phục vụ PATCH/DELETE.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string",
+          "required": true,
+          "validation": "Nhóm của target."
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true,
+          "validation": "Author UID."
+        },
+        {
+          "name": "placeId",
+          "type": "string or null",
+          "required": true,
+          "validation": "XOR với planId; place phải trong wishlist/lịch cùng nhóm."
+        },
+        {
+          "name": "planId",
+          "type": "string or null",
+          "required": true,
+          "validation": "XOR placeId; plan cùng group."
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "validation": "Trim, 1–2000 ký tự theo validator API."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve order."
+        },
+        {
+          "name": "editedAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "null nếu chưa edit."
+        },
+        {
+          "name": "deletedAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "Soft delete; default null phải hiện diện để query."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "userId": "demo-leader",
+        "placeId": "dalat-01",
+        "planId": null,
+        "content": "Hẹn nhau ở hồ.",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "editedAt": null,
+        "deletedAt": null,
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "users",
+        "places",
+        "plans"
+      ],
+      "permission": "Member read via REST; author+member edit/delete; userName/avatar hydrate từ users. Direct SDK deny.",
+      "indexes": "I6a/I6b; content exempt."
+    },
+    {
+      "path": "users/{uid}/notifications/{nid}",
+      "purpose": "Thông báo riêng; readAt chỉ owner cập nhật qua service.",
+      "fields": [
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp path uid."
+        },
+        {
+          "name": "groupId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Group liên quan nếu có."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "validation": "Sanitized display text."
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "validation": "Không secret/raw private provider payload."
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "validation": "Giữ notification type hiện có."
+        },
+        {
+          "name": "planId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Plan liên quan nếu có."
+        },
+        {
+          "name": "alertId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Alert liên quan nếu có."
+        },
+        {
+          "name": "payload",
+          "type": "map",
+          "required": true,
+          "validation": "Metadata nhỏ, default {}."
+        },
+        {
+          "name": "readAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "Mark-read idempotent."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve/import time."
+        },
+        {
+          "name": "eventId",
+          "type": "string",
+          "required": false,
+          "validation": "Outbox event để fanout idempotent."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "userId": "demo-leader",
+        "groupId": "demo-group",
+        "title": "Có phương án mới",
+        "message": "Ví dụ thông báo.",
+        "type": "PLAN_VOTE",
+        "planId": "<plan-id>",
+        "alertId": null,
+        "payload": {},
+        "readAt": null,
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "eventId": "<event-id>",
+        "schemaVersion": 1
+      },
+      "related": [
+        "users",
+        "groups",
+        "plans",
+        "alerts",
+        "outbox"
+      ],
+      "permission": "Owner REST read/read-mark; worker/backend create, direct SDK deny.",
+      "indexes": "I7 nếu unread query; default createdAt DESC automatic."
+    },
+    {
+      "path": "groups/{gid}/alerts/{aid}",
+      "purpose": "Cảnh báo có nguồn/dedupe; không tự áp dụng lịch.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp path."
+        },
+        {
+          "name": "weatherCheckId",
+          "type": "string",
+          "required": true,
+          "validation": "Check làm căn cứ."
+        },
+        {
+          "name": "planId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Proposal nếu tạo được."
+        },
+        {
+          "name": "dedupeKey",
+          "type": "string",
+          "required": true,
+          "validation": "Unique registry; giữ SQL key."
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "validation": "OPEN/RESOLVED hoặc trạng thái cũ cần bảo toàn."
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "validation": "Source-backed, có demo flag từ demoRunId."
+        },
+        {
+          "name": "demoRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Không gộp demo vào accuracy."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "weatherCheckId": "<check-id>",
+        "planId": null,
+        "dedupeKey": "<dedupe-key>",
+        "status": "OPEN",
+        "message": "Ví dụ cảnh báo, chưa có dữ kiện thật.",
+        "demoRunId": "example-only",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "weatherChecks",
+        "plans",
+        "uniqueKeys"
+      ],
+      "permission": "Member REST read; trusted weather/vote service write; direct SDK deny.",
+      "indexes": "Automatic createdAt DESC, uniqueKeys direct."
+    },
+    {
+      "path": "weatherSnapshots/{sid}",
+      "purpose": "Snapshot theo provider/location/mode; không phải current observation mặc định.",
+      "fields": [
+        {
+          "name": "provider",
+          "type": "string",
+          "required": true,
+          "validation": "Open-Meteo/WeatherAPI/Tomorrow.io."
+        },
+        {
+          "name": "modelName",
+          "type": "string or null",
+          "required": true,
+          "validation": "Không đoán model nguồn."
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "validation": "City/rounded fetch coordinate, không ghi key API."
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "validation": "Range hợp lệ."
+        },
+        {
+          "name": "locationKey",
+          "type": "string",
+          "required": true,
+          "validation": "Canonical round-key giống cache."
+        },
+        {
+          "name": "fetchedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Thời điểm lấy, không phải giờ forecast."
+        },
+        {
+          "name": "issuedAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "Giờ phát hành nguồn nếu biết."
+        },
+        {
+          "name": "normalizedForecast",
+          "type": "array<map>",
+          "required": true,
+          "validation": "Giữ time/rain/probability/temp/wind null và validity."
+        },
+        {
+          "name": "rawPayload",
+          "type": "map",
+          "required": false,
+          "validation": "Chỉ payload nhỏ, redacted và trong size budget."
+        },
+        {
+          "name": "rawArchiveRef",
+          "type": "string",
+          "required": false,
+          "validation": "Bắt buộc nếu raw gốc không fit; storage trusted, không public URL chứa token."
+        },
+        {
+          "name": "payloadSha256",
+          "type": "string",
+          "required": false,
+          "validation": "Kiểm chứng raw/archive."
+        },
+        {
+          "name": "demoRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Live=null; demo cô lập."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "provider": "Open-Meteo",
+        "modelName": null,
+        "latitude": 11.9404,
+        "longitude": 108.4583,
+        "locationKey": "11.9404:108.4583",
+        "fetchedAt": "2026-11-17T00:00:00.000Z",
+        "issuedAt": null,
+        "normalizedForecast": [],
+        "rawPayload": {},
+        "demoRunId": null,
+        "schemaVersion": 1
+      },
+      "related": [
+        "weatherChecks.sources",
+        "cities"
+      ],
+      "permission": "Chỉ services; API serialize summary có auth/membership; no direct client access.",
+      "indexes": "I8; exempt rawPayload/normalizedForecast."
+    },
+    {
+      "path": "weatherChecks/{checkId}",
+      "purpose": "Căn cứ quyết định mưa; gộp check_sources vào map.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string",
+          "required": true,
+          "validation": "Group hợp lệ."
+        },
+        {
+          "name": "planItemId",
+          "type": "string or null",
+          "required": true,
+          "validation": "ID item lịch đang xét nếu có."
+        },
+        {
+          "name": "targetFrom",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Bắt đầu cửa sổ forecast."
+        },
+        {
+          "name": "targetTo",
+          "type": "Timestamp",
+          "required": true,
+          "validation": ">targetFrom."
+        },
+        {
+          "name": "checkedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Thời điểm đánh giá."
+        },
+        {
+          "name": "ruleVersion",
+          "type": "string",
+          "required": true,
+          "validation": "Giữ policy đã áp dụng."
+        },
+        {
+          "name": "decision",
+          "type": "string",
+          "required": true,
+          "validation": "Preserve decision SQL, không đổi thành xác suất."
+        },
+        {
+          "name": "sources",
+          "type": "map<provider,SourceFact>",
+          "required": true,
+          "validation": "Mỗi entry snapshotId nullable, selectedFacts, isUsable, isRainRisk, unusableReason nullable; preserve mọi row check_sources."
+        },
+        {
+          "name": "demoRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Cô lập demo."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "planItemId": null,
+        "targetFrom": "2026-11-17T01:00:00Z",
+        "targetTo": "2026-11-17T02:00:00Z",
+        "checkedAt": "2026-11-17T00:00:00.000Z",
+        "ruleVersion": "<preserve-rule-version>",
+        "decision": "<preserve-decision>",
+        "sources": {
+          "Open-Meteo": {
+            "snapshotId": null,
+            "selectedFacts": {},
+            "isUsable": false,
+            "isRainRisk": false,
+            "unusableReason": "MISSING"
+          }
+        },
+        "demoRunId": null,
+        "schemaVersion": 1
+      },
+      "related": [
+        "plans.items",
+        "weatherSnapshots",
+        "alerts",
+        "forecastVerifications"
+      ],
+      "permission": "Trusted service write; selected DTO only qua REST; direct SDK deny.",
+      "indexes": "I9; sources map exempt; provider có dấu chấm không dùng dotted-path update tùy ý."
+    },
+    {
+      "path": "rainReports/{rid}",
+      "purpose": "Quan sát có vị trí và trạng thái xác minh, không tự coi là thực tế đúng.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string",
+          "required": true,
+          "validation": "Membership check."
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true,
+          "validation": "UID báo cáo."
+        },
+        {
+          "name": "latitude",
+          "type": "number",
+          "required": true,
+          "validation": "Range hợp lệ."
+        },
+        {
+          "name": "longitude",
+          "type": "number",
+          "required": true,
+          "validation": "Range hợp lệ."
+        },
+        {
+          "name": "accuracyM",
+          "type": "number",
+          "required": true,
+          "validation": ">=0 và threshold service giữ từ rainReport."
+        },
+        {
+          "name": "reportedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Giữ observed/reported time, validation chống future/stale."
+        },
+        {
+          "name": "condition",
+          "type": "enum(RAIN,DRY)",
+          "required": true,
+          "validation": "Không invent khác."
+        },
+        {
+          "name": "validationStatus",
+          "type": "enum(PENDING,VERIFIED,REJECTED)",
+          "required": true,
+          "validation": "Chỉ backend xác minh."
+        },
+        {
+          "name": "verificationMethod",
+          "type": "string or null",
+          "required": true,
+          "validation": "Evidence method nếu có."
+        },
+        {
+          "name": "demoRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Giữ provenance."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve server receipt time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "userId": "demo-leader",
+        "latitude": 11.9404,
+        "longitude": 108.4583,
+        "accuracyM": 20,
+        "reportedAt": "2026-11-17T00:00:00.000Z",
+        "condition": "RAIN",
+        "validationStatus": "PENDING",
+        "verificationMethod": null,
+        "demoRunId": "example-only",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "users",
+        "forecastVerifications"
+      ],
+      "permission": "Member submit via REST; server validates; no direct client write/read.",
+      "indexes": "I10; nếu thêm status query tạo index tương ứng trong PR."
+    },
+    {
+      "path": "forecastVerifications/{checkId_providerKey}",
+      "purpose": "Unique check/provider; giữ row ID cũ trong legacyId.",
+      "fields": [
+        {
+          "name": "legacyId",
+          "type": "string",
+          "required": false,
+          "validation": "SQL UUID nguyên gốc và migration mapping."
+        },
+        {
+          "name": "checkId",
+          "type": "string",
+          "required": true,
+          "validation": "Weather check tồn tại."
+        },
+        {
+          "name": "provider",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp key mapping."
+        },
+        {
+          "name": "targetFrom",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve interval."
+        },
+        {
+          "name": "targetTo",
+          "type": "Timestamp",
+          "required": true,
+          "validation": ">from."
+        },
+        {
+          "name": "dueAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Chỉ kiểm khi có evidence."
+        },
+        {
+          "name": "verifiedAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "null khi UNKNOWN."
+        },
+        {
+          "name": "predictedRain",
+          "type": "boolean or null",
+          "required": true,
+          "validation": "null không phải false."
+        },
+        {
+          "name": "observedRain",
+          "type": "boolean or null",
+          "required": true,
+          "validation": "null khi thiếu evidence."
+        },
+        {
+          "name": "evidence",
+          "type": "map",
+          "required": true,
+          "validation": "Provenance/refs, không đưa GPS cá nhân ra public."
+        },
+        {
+          "name": "outcome",
+          "type": "enum(TP,FP,TN,FN,UNKNOWN)",
+          "required": true,
+          "validation": "Không tự gán accuracy cho demo/missing."
+        },
+        {
+          "name": "demoRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Loại demo khỏi real stats."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "legacyId": "<legacy-verification-id>",
+        "checkId": "<check-id>",
+        "provider": "Open-Meteo",
+        "targetFrom": "2026-11-17T01:00:00Z",
+        "targetTo": "2026-11-17T02:00:00Z",
+        "dueAt": "2026-11-17T02:30:00Z",
+        "verifiedAt": null,
+        "predictedRain": null,
+        "observedRain": null,
+        "evidence": {},
+        "outcome": "UNKNOWN",
+        "demoRunId": null,
+        "schemaVersion": 1
+      },
+      "related": [
+        "weatherChecks",
+        "weatherSnapshots",
+        "rainReports"
+      ],
+      "permission": "Worker/admin only; aggregate verification DTO qua REST; SDK deny.",
+      "indexes": "I11; large evidence maps exempt."
+    },
+    {
+      "path": "groups/{gid}/activity/{aid}",
+      "purpose": "Audit/activity log; không chứa credential.",
+      "fields": [
+        {
+          "name": "actorId",
+          "type": "string or null",
+          "required": true,
+          "validation": "null cho worker/system."
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": true,
+          "validation": "Giữ action code hiện có."
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "validation": "Display text được sanitize."
+        },
+        {
+          "name": "entityType",
+          "type": "string or null",
+          "required": true,
+          "validation": "Preserve SQL metadata."
+        },
+        {
+          "name": "entityId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Preserve reference."
+        },
+        {
+          "name": "beforeData",
+          "type": "map or null",
+          "required": true,
+          "validation": "Redact sensitive fields."
+        },
+        {
+          "name": "afterData",
+          "type": "map or null",
+          "required": true,
+          "validation": "Preserve meaning, redact credentials."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "actorId": "demo-leader",
+        "action": "PLAN_VOTE",
+        "message": "Một thành viên biểu quyết.",
+        "entityType": "plan",
+        "entityId": "<plan-id>",
+        "beforeData": null,
+        "afterData": {
+          "choice": "YES"
+        },
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "users",
+        "plans"
+      ],
+      "permission": "Member REST read; service writes; SDK deny.",
+      "indexes": "Automatic createdAt DESC; exempt beforeData/afterData."
+    },
+    {
+      "path": "aiExecutions/{runId}",
+      "purpose": "Audit execution, không đưa raw AI/provider credential tới frontend.",
+      "fields": [
+        {
+          "name": "groupId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Null cho discovery cá nhân; giữ SQL group link khi import."
+        },
+        {
+          "name": "userId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Caller nếu đã lưu, không suy đoán actor khi SQL không có."
+        },
+        {
+          "name": "task",
+          "type": "string",
+          "required": true,
+          "validation": "INITIAL/RAIN_CHANGE/DISCOVERY hoặc preserve legacy task."
+        },
+        {
+          "name": "model",
+          "type": "string or null",
+          "required": true,
+          "validation": "Model được dùng, null cho purely rule result nếu không có."
+        },
+        {
+          "name": "promptVersion",
+          "type": "string",
+          "required": true,
+          "validation": "Version validator/prompt."
+        },
+        {
+          "name": "inputFacts",
+          "type": "map",
+          "required": true,
+          "validation": "Sanitized facts/constraints; có archiveRef nếu lớn."
+        },
+        {
+          "name": "output",
+          "type": "map or null",
+          "required": true,
+          "validation": "Output validated hoặc raw archive có ACL, không overwrite evidence."
+        },
+        {
+          "name": "validationErrors",
+          "type": "array",
+          "required": true,
+          "validation": "Redacted reason codes."
+        },
+        {
+          "name": "attemptNo",
+          "type": "integer",
+          "required": true,
+          "validation": ">=1; retry bounded."
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "validation": "Giữ status legacy; enum mới phải có migration mapping explicit."
+        },
+        {
+          "name": "engine",
+          "type": "enum(LLM,RULE_BASED)",
+          "required": true,
+          "validation": "Output provenance, không DEMO engine."
+        },
+        {
+          "name": "demoRunId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Demo isolation."
+        },
+        {
+          "name": "archiveRef",
+          "type": "string",
+          "required": false,
+          "validation": "Có checksum/ACL nếu payload ngoài doc."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Preserve time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "groupId": "demo-group",
+        "userId": null,
+        "task": "INITIAL",
+        "model": null,
+        "promptVersion": "<preserve-version>",
+        "inputFacts": {},
+        "output": null,
+        "validationErrors": [],
+        "attemptNo": 1,
+        "status": "<preserve-status>",
+        "engine": "RULE_BASED",
+        "demoRunId": "example-only",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "plans",
+        "weatherSnapshots"
+      ],
+      "permission": "Admin/service audit only; no direct client read/write.",
+      "indexes": "I14; exempt facts/output/errors."
+    },
+    {
+      "path": "providerRequestLog/{reservationId}",
+      "purpose": "Mỗi reservation budget provider; không chứa URL/key.",
+      "fields": [
+        {
+          "name": "provider",
+          "type": "string",
+          "required": true,
+          "validation": "Khớp connector."
+        },
+        {
+          "name": "requestedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Nguồn tính sliding windows."
+        },
+        {
+          "name": "expiresAt",
+          "type": "Timestamp",
+          "required": false,
+          "validation": "Retention sau window/reference needs, TTL chỉ dọn rác."
+        },
+        {
+          "name": "legacyExportOrdinal",
+          "type": "integer",
+          "required": false,
+          "validation": "Dùng với export hash để tạo ID vì SQL không PK."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "provider": "Open-Meteo",
+        "requestedAt": "2026-11-17T00:00:00.000Z",
+        "expiresAt": "2027-01-01T00:00:00Z",
+        "legacyExportOrdinal": 1,
+        "schemaVersion": 1
+      },
+      "related": [
+        "quotaLocks",
+        "weatherSnapshots"
+      ],
+      "permission": "Server-only read/write.",
+      "indexes": "I12; không xoá trước sliding-window hết hiệu lực."
+    },
+    {
+      "path": "quotaLocks/{providerKey}",
+      "purpose": "Mutex/version document cho reservation concurrent.",
+      "fields": [
+        {
+          "name": "provider",
+          "type": "string",
+          "required": true,
+          "validation": "Canonical provider."
+        },
+        {
+          "name": "revision",
+          "type": "integer",
+          "required": true,
+          "validation": "Tăng mỗi reservation để conflict/retry serialize."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Server time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "provider": "Open-Meteo",
+        "revision": 1,
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "providerRequestLog"
+      ],
+      "permission": "Server-only.",
+      "indexes": "Direct document; không coi revision là provider quota."
+    },
+    {
+      "path": "uniqueKeys/{kind_sha256}",
+      "purpose": "Registry uniqueness thay SQL UNIQUE khi không có natural-key doc.",
+      "fields": [
+        {
+          "name": "kind",
+          "type": "enum(INVITE,ALERT_DEDUPE,VERIFICATION)",
+          "required": true,
+          "validation": "Domain của key, hash canonical có namespace."
+        },
+        {
+          "name": "targetPath",
+          "type": "string",
+          "required": true,
+          "validation": "Document tồn tại/được tạo cùng transaction."
+        },
+        {
+          "name": "groupId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Group scope nếu cần."
+        },
+        {
+          "name": "expiresAt",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "Invite expiry; null cho lịch sử vẫn cần unique."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Server/import time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "kind": "INVITE",
+        "targetPath": "groups/demo-group",
+        "groupId": "demo-group",
+        "expiresAt": "2026-12-17T00:00:00Z",
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "alerts",
+        "forecastVerifications"
+      ],
+      "permission": "Server-only; không expose hash registry như API lookup public.",
+      "indexes": "Direct document key, không scan string invite."
+    },
+    {
+      "path": "outbox/{eventId}",
+      "purpose": "Intent event bền vững cùng transaction, publisher không phải DB thứ hai.",
+      "fields": [
+        {
+          "name": "eventName",
+          "type": "string",
+          "required": true,
+          "validation": "Một event contract hiện có."
+        },
+        {
+          "name": "groupId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Scope room nếu có."
+        },
+        {
+          "name": "userId",
+          "type": "string or null",
+          "required": true,
+          "validation": "Personal scope nếu có."
+        },
+        {
+          "name": "entityId",
+          "type": "string or null",
+          "required": true,
+          "validation": "ID refetch, không nhét raw secret."
+        },
+        {
+          "name": "recipientUids",
+          "type": "array<string>",
+          "required": false,
+          "validation": "Snapshot recipients cho notification intent; bounded/ACL checked."
+        },
+        {
+          "name": "payload",
+          "type": "map",
+          "required": true,
+          "validation": "Metadata nhỏ, đúng contract."
+        },
+        {
+          "name": "status",
+          "type": "enum(PENDING,PROCESSING,DONE,DEAD)",
+          "required": true,
+          "validation": "Worker kiểm và retry idempotent."
+        },
+        {
+          "name": "attempts",
+          "type": "integer",
+          "required": true,
+          "validation": ">=0, capped policy."
+        },
+        {
+          "name": "availableAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Backoff scheduling."
+        },
+        {
+          "name": "leaseOwner",
+          "type": "string or null",
+          "required": true,
+          "validation": "Worker giữ lease."
+        },
+        {
+          "name": "leaseUntil",
+          "type": "Timestamp or null",
+          "required": true,
+          "validation": "Retry khi worker chết."
+        },
+        {
+          "name": "lastError",
+          "type": "string or null",
+          "required": true,
+          "validation": "Redacted code only."
+        },
+        {
+          "name": "createdAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Domain commit timestamp."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Worker timestamp."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "eventName": "plan:updated",
+        "groupId": "demo-group",
+        "userId": null,
+        "entityId": "<plan-id>",
+        "payload": {
+          "planId": "<plan-id>"
+        },
+        "status": "PENDING",
+        "attempts": 0,
+        "availableAt": "2026-11-17T00:00:00.000Z",
+        "leaseOwner": null,
+        "leaseUntil": null,
+        "lastError": null,
+        "createdAt": "2026-11-17T00:00:00.000Z",
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "groups",
+        "plans",
+        "notifications",
+        "workerLeases"
+      ],
+      "permission": "Server/worker only; emit after commit; direct SDK deny.",
+      "indexes": "I13; exempt payload/recipient list không query."
+    },
+    {
+      "path": "workerLeases/{jobKey}",
+      "purpose": "Lease/fencing khi nhiều worker hoặc restart.",
+      "fields": [
+        {
+          "name": "owner",
+          "type": "string",
+          "required": true,
+          "validation": "Instance ID, không credential."
+        },
+        {
+          "name": "fencingToken",
+          "type": "integer",
+          "required": true,
+          "validation": "Tăng khi cấp lease; stale owner không ghi domain state."
+        },
+        {
+          "name": "expiresAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Backend clock synchronized; check transaction."
+        },
+        {
+          "name": "heartbeatAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Renew lease."
+        },
+        {
+          "name": "updatedAt",
+          "type": "Timestamp",
+          "required": true,
+          "validation": "Server time."
+        },
+        {
+          "name": "schemaVersion",
+          "type": "integer",
+          "required": true,
+          "validation": "Giá trị 1 ở schema đích; không gửi vào DTO nếu contract không có."
+        }
+      ],
+      "example": {
+        "owner": "<instance-id>",
+        "fencingToken": 1,
+        "expiresAt": "2026-11-17T00:01:00Z",
+        "heartbeatAt": "2026-11-17T00:00:00.000Z",
+        "updatedAt": "2026-11-17T00:00:00.000Z",
+        "schemaVersion": 1
+      },
+      "related": [
+        "outbox",
+        "weatherChecks"
+      ],
+      "permission": "Server-only.",
+      "indexes": "Direct doc by logical job key."
+    }
+  ],
+  "nestedStructures": [
+    {
+      "name": "PlanItemCore (plans.items[])",
+      "fields": [
+        [
+          "id",
+          "string",
+          "R",
+          "ID item cũ hoặc server cấp; unique trong plan."
+        ],
+        [
+          "placeId",
+          "string",
+          "R",
+          "Tham chiếu catalogue; retired items lịch sử vẫn giữ."
+        ],
+        [
+          "position",
+          "integer",
+          "R",
+          "API SQL 0-based; giữ thứ tự/unique position khi import."
+        ],
+        [
+          "startTime",
+          "Timestamp",
+          "R",
+          "Serialize ISO trong PlanItem DTO."
+        ],
+        [
+          "endTime",
+          "Timestamp",
+          "R",
+          ">startTime."
+        ],
+        [
+          "travelMin",
+          "integer",
+          "R",
+          ">=0, estimate không phải live traffic."
+        ],
+        [
+          "costVnd",
+          "integer",
+          "R",
+          ">=0, có thể assumption; source unknown không gọi là miễn phí."
+        ],
+        [
+          "reason",
+          "string",
+          "R",
+          "Validated explanation."
+        ],
+        [
+          "factIds",
+          "array<string>",
+          "R",
+          "Giữ fact refs có nguồn, không sinh ID bịa."
+        ]
+      ]
+    },
+    {
+      "name": "Constraints snapshot (plans.constraints)",
+      "fields": [
+        [
+          "cityId",
+          "string",
+          "R",
+          "City group khi mở proposal."
+        ],
+        [
+          "tripDate",
+          "string YYYY-MM-DD",
+          "R",
+          "Ngày Việt Nam, không Timestamp."
+        ],
+        [
+          "startHour",
+          "integer",
+          "R",
+          "Giữ group window lúc generation."
+        ],
+        [
+          "endHour",
+          "integer",
+          "R",
+          ">start, <=24."
+        ],
+        [
+          "budgetPerPersonVnd",
+          "integer",
+          "R",
+          "Giữ budget snapshot."
+        ],
+        [
+          "mode",
+          "enum(DEMO,LIVE)",
+          "R",
+          "Phải khớp lúc commit/vote; không dùng nhầm DEMO làm LIVE."
+        ]
+      ]
+    },
+    {
+      "name": "SourceFact (weatherChecks.sources[provider])",
+      "fields": [
+        [
+          "snapshotId",
+          "string or null",
+          "R",
+          "Tham chiếu weatherSnapshots; null nếu missing."
+        ],
+        [
+          "selectedFacts",
+          "map",
+          "R",
+          "Facts source đã chọn; không thêm provider key."
+        ],
+        [
+          "isUsable",
+          "boolean",
+          "R",
+          "False nếu thiếu/cũ/không hợp lệ."
+        ],
+        [
+          "isRainRisk",
+          "boolean",
+          "R",
+          "Rule decision; false cùng isUsable=false không phải clear weather."
+        ],
+        [
+          "unusableReason",
+          "string or null",
+          "R",
+          "Reason code/explanation khi không dùng được."
+        ]
+      ]
+    },
+    {
+      "name": "HourForecast (weatherSnapshots.normalizedForecast[])",
+      "fields": [
+        [
+          "time",
+          "string ISO",
+          "R",
+          "Giữ kiểu normalized HourForecast hiện tại, không đổi timestamp semantics trong array khi import."
+        ],
+        [
+          "rainMmH",
+          "number or null",
+          "R",
+          "Unknown=null, không tự 0."
+        ],
+        [
+          "probabilityPct",
+          "number or null",
+          "R",
+          "0..100 nếu có, không average phiếu nguồn."
+        ],
+        [
+          "temperatureC",
+          "number or null",
+          "O",
+          "Nguồn chưa có có thể null/absent; không lưu undefined."
+        ],
+        [
+          "windKmh",
+          "number or null",
+          "O",
+          ">=0 nếu có; không lưu undefined."
+        ]
+      ]
+    }
+  ]
+}

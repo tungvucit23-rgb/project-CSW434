@@ -1,5 +1,17 @@
 # Đi Chung
 
+Source của nhóm: [project-CSW434](https://github.com/tungvucit23-rgb/project-CSW434). Bắt đầu từ [bàn giao kỹ thuật](docs/team/README.md), [cài máy theo vai trò](docs/team/TEAM_SETUP.md) và [hướng dẫn Git](docs/team/GIT_WORKFLOW.md).
+
+```powershell
+git clone https://github.com/tungvucit23-rgb/project-CSW434.git
+cd project-CSW434
+npm.cmd ci
+# Chạy frontend Mock Mode, không cần backend/Firebase hoặc API key:
+npm.cmd run web -w @di-chung/mobile
+```
+
+macOS/Linux dùng `npm` thay `npm.cmd`. Đọc [trạng thái xuất bản và kiểm chứng clone](docs/team/GITHUB_HANDOFF.md) trước khi tích hợp. Backend hiện tại dùng SQL/PGlite; Firebase mới có thiết kế, chưa triển khai.
+
 ## Bàn giao nhóm — Phase 4 (17/11/2026)
 
 Backend và Database developers bắt đầu từ [docs/team/README.md](docs/team/README.md): kiến trúc, API contract, kế hoạch Backend/Firebase, cài máy theo vai trò và workflow Git. Hiện backend vẫn dùng PostgreSQL/PGlite; Firebase trong Phase 4 là thiết kế và kế hoạch, chưa triển khai. Frontend chạy độc lập bằng Mock Mode theo [hướng dẫn frontend](apps/mobile/FRONTEND_HANDOFF.md).
@@ -19,7 +31,7 @@ npm.cmd run dev
 
 Hoặc chạy `START-DEMO.cmd`. API ở <http://localhost:4000/api/health>, giao diện ở <http://localhost:8081>. Chọn tài khoản demo trên màn hình đăng nhập để dùng ngay. Ba danh tính demo là ba người độc lập: không có cơ chế tự bỏ phiếu thay người dùng.
 
-**APK Phase 2 đã build:** [`artifacts/di-chung-phase2-arm64.apk`](artifacts/di-chung-phase2-arm64.apk), khoảng 27 MB, dành cho thiết bị Android arm64/API 24+. Cài APK rồi nhập địa chỉ IP LAN backend ở mục kết nối trên màn đăng nhập. Đây là bản ký demo, chưa có client key Maps nên dùng danh sách/web hoặc cấu hình key và build lại; xem [hướng dẫn Android](docs/ANDROID.md). Bản Phase 1 vẫn giữ tại `artifacts/di-chung-travel-map-arm64.apk`.
+**APK Phase 2 đã build trước đây:** `artifacts/di-chung-phase2-arm64.apk`, khoảng 27 MB, dành cho thiết bị Android arm64/API 24+. Các APK và thư mục `artifacts/` chỉ có ở máy build, không nằm trong source clone. Xem [hướng dẫn build Android](docs/ANDROID.md) để tạo APK riêng. Đây là bản ký demo, chưa có client key Maps nên dùng danh sách/web hoặc cấu hình key và build lại.
 
 **Phase 2:** Find My Perfect Trip gợi ý độc lập theo sở thích, khung giờ, ngân sách và thời tiết; lưu wishlist hoặc chuyển sang planner nhóm. Lịch trình có marker đánh số, đường nét đứt và timeline đồng bộ. [Báo cáo triển khai tám phần](docs/PHASE-2-AI.md) ghi rõ API, tệp sửa, kiểm thử và giới hạn. Chưa có key OpenAI trong môi trường nghiệm thu: kết quả hiện chạy RULE_BASED, chưa xác minh model thật.
 
@@ -88,4 +100,4 @@ npm.cmd run build:web
 
 Các kiểm tra đã thực hiện và giới hạn còn lại được ghi tại [báo cáo kiểm thử](docs/KIEM-THU.md). Chưa có API key thì chưa thể khẳng định đã gọi thành công LLM hoặc các nguồn cần khóa bằng tài khoản thực.
 
-# project-CSW434
+Repository môn học: **project-CSW434**; tên ứng dụng: **Đi Chung**.

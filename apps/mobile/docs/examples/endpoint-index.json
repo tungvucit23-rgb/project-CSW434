@@ -1,0 +1,966 @@
+[
+  {
+    "method": "GET",
+    "path": "/health",
+    "auth": "public",
+    "requestType": "none",
+    "responseType": "{status:string;database:string;llmConfigured:boolean;demoEnabled:boolean}",
+    "status": "existing",
+    "screens": [
+      "settings"
+    ],
+    "errors": [
+      500,
+      503
+    ],
+    "events": [],
+    "fixture": "MockDataAdapter /health"
+  },
+  {
+    "method": "POST",
+    "path": "/auth/register",
+    "auth": "public",
+    "requestType": "AuthInput & {name:string}",
+    "responseType": "AuthResult",
+    "status": "existing",
+    "screens": [
+      "register"
+    ],
+    "errors": [
+      400,
+      409,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "state.users"
+  },
+  {
+    "method": "POST",
+    "path": "/auth/login",
+    "auth": "public",
+    "requestType": "AuthInput",
+    "responseType": "AuthResult",
+    "status": "existing",
+    "screens": [
+      "login"
+    ],
+    "errors": [
+      400,
+      401,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "demoUsers / state.passwords"
+  },
+  {
+    "method": "POST",
+    "path": "/auth/demo",
+    "auth": "public",
+    "requestType": "{persona?:'leader'|'member'|'third'}",
+    "responseType": "AuthResult",
+    "status": "existing",
+    "screens": [
+      "login",
+      "settings"
+    ],
+    "errors": [
+      400,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "demoUsers"
+  },
+  {
+    "method": "GET",
+    "path": "/auth/me",
+    "auth": "user",
+    "requestType": "none",
+    "responseType": "User",
+    "status": "existing",
+    "screens": [
+      "profile",
+      "home"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "state.users"
+  },
+  {
+    "method": "PATCH",
+    "path": "/auth/me",
+    "auth": "user",
+    "requestType": "{name:string;avatarColor?:string}",
+    "responseType": "User",
+    "status": "existing",
+    "screens": [
+      "editProfile"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "state.users"
+  },
+  {
+    "method": "POST",
+    "path": "/auth/forgot-password",
+    "auth": "public",
+    "requestType": "PasswordResetInput",
+    "responseType": "ActionResult",
+    "status": "proposed",
+    "screens": [
+      "forgotPassword"
+    ],
+    "errors": [
+      400,
+      429,
+      501,
+      503
+    ],
+    "events": [],
+    "fixture": "MockDataAdapter public action; sends no email"
+  },
+  {
+    "method": "POST",
+    "path": "/auth/change-password",
+    "auth": "user",
+    "requestType": "ChangePasswordInput",
+    "responseType": "ActionResult",
+    "status": "proposed",
+    "screens": [
+      "changePassword"
+    ],
+    "errors": [
+      400,
+      401,
+      429,
+      501,
+      503
+    ],
+    "events": [],
+    "fixture": "state.passwords (memory only)"
+  },
+  {
+    "method": "GET",
+    "path": "/cities",
+    "auth": "user",
+    "requestType": "none",
+    "responseType": "City[]",
+    "status": "existing",
+    "screens": [
+      "home",
+      "discover",
+      "map",
+      "recommendations",
+      "createGroup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "cities"
+  },
+  {
+    "method": "GET",
+    "path": "/places?cityId=dalat&q=&environment=&category=",
+    "auth": "user",
+    "requestType": "query: {cityId?:string;q?:string;environment?:\"INDOOR\"|\"OUTDOOR\";category?:string}",
+    "responseType": "Place[]",
+    "status": "existing",
+    "screens": [
+      "discover",
+      "filters",
+      "map",
+      "recommendations",
+      "aiSetup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "places (80 OSM records)"
+  },
+  {
+    "method": "GET",
+    "path": "/places/:id",
+    "auth": "user",
+    "requestType": "path id: string",
+    "responseType": "Place",
+    "status": "existing",
+    "screens": [
+      "placeDetail",
+      "map",
+      "planItem"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "places[0]"
+  },
+  {
+    "method": "GET",
+    "path": "/groups",
+    "auth": "user",
+    "requestType": "none",
+    "responseType": "Group[]",
+    "status": "existing",
+    "screens": [
+      "home",
+      "groups"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "group:updated"
+    ],
+    "fixture": "state.groups"
+  },
+  {
+    "method": "POST",
+    "path": "/groups",
+    "auth": "user",
+    "requestType": "{name:string;cityId:string;tripDate:string;startHour:number;endHour:number;budgetPerPersonVnd:number;mode?:'DEMO'|'LIVE'}",
+    "responseType": "Group",
+    "status": "existing",
+    "screens": [
+      "createGroup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "group:updated",
+      "activity:created"
+    ],
+    "fixture": "state.groups"
+  },
+  {
+    "method": "POST",
+    "path": "/groups/join",
+    "auth": "user",
+    "requestType": "{code:string}",
+    "responseType": "Group",
+    "status": "existing",
+    "screens": [
+      "joinGroup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "group:updated",
+      "activity:created"
+    ],
+    "fixture": "state.groups / DICHUNG"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "GroupDetail",
+    "status": "existing",
+    "screens": [
+      "dashboard",
+      "members",
+      "invite",
+      "wishlist",
+      "timeline",
+      "history",
+      "budget",
+      "aiSetup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "group:updated",
+      "wishlist:updated",
+      "plan:updated",
+      "plan:applied"
+    ],
+    "fixture": "state.groups[0]"
+  },
+  {
+    "method": "PATCH",
+    "path": "/groups/:id",
+    "auth": "leader",
+    "requestType": "Partial<Pick<Group,'name'|'tripDate'|'startHour'|'endHour'|'budgetPerPersonVnd'|'mode'>> & {expectedRevision?:number}",
+    "responseType": "Group",
+    "status": "existing",
+    "screens": [
+      "budget",
+      "aiSetup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      409,
+      429,
+      500
+    ],
+    "events": [
+      "group:updated",
+      "plan:updated",
+      "activity:created"
+    ],
+    "fixture": "state.groups[0].group"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/preferences",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "Preferences (current user)",
+    "status": "existing",
+    "screens": [
+      "groupPreferences",
+      "aiSetup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "group:updated"
+    ],
+    "fixture": "state.preferences[groupId:userId]"
+  },
+  {
+    "method": "PATCH",
+    "path": "/groups/:id/preferences",
+    "auth": "member",
+    "requestType": "Pick<Preferences,\"categories\"> & Partial<Omit<Preferences,\"categories\">>",
+    "responseType": "Preferences",
+    "status": "existing",
+    "screens": [
+      "groupPreferences",
+      "aiSetup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "group:updated",
+      "activity:created"
+    ],
+    "fixture": "state.preferences[groupId:userId]"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/wishlist",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "Place[]",
+    "status": "existing",
+    "screens": [
+      "wishlist",
+      "map",
+      "aiSetup"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "wishlist:updated"
+    ],
+    "fixture": "state.groups[0].wishlist"
+  },
+  {
+    "method": "POST",
+    "path": "/groups/:id/wishlist",
+    "auth": "member",
+    "requestType": "{placeId:string}",
+    "responseType": "Place[]",
+    "status": "existing",
+    "screens": [
+      "discover",
+      "placeDetail",
+      "map",
+      "recommendations"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "wishlist:updated",
+      "activity:created"
+    ],
+    "fixture": "state.groups[0].wishlist"
+  },
+  {
+    "method": "DELETE",
+    "path": "/groups/:id/wishlist/:placeId",
+    "auth": "member",
+    "requestType": "path id,placeId: string",
+    "responseType": "Place[]",
+    "status": "existing",
+    "screens": [
+      "wishlist"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "wishlist:updated",
+      "activity:created"
+    ],
+    "fixture": "state.groups[0].wishlist"
+  },
+  {
+    "method": "POST",
+    "path": "/ai/recommendations",
+    "auth": "user",
+    "requestType": "DiscoveryInput",
+    "responseType": "RecommendationResult",
+    "status": "existing",
+    "screens": [
+      "recommendations",
+      "map"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      502,
+      503
+    ],
+    "events": [],
+    "fixture": "MockDataAdapter.recommend; full example in docs/examples"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/plans",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "Plan[]",
+    "status": "existing",
+    "screens": [
+      "history",
+      "proposal"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "plan:created",
+      "plan:updated",
+      "plan:applied"
+    ],
+    "fixture": "state.groups[0].plans"
+  },
+  {
+    "method": "POST",
+    "path": "/groups/:id/plans/generate",
+    "auth": "leader",
+    "requestType": "{mode:'demo'|'live';task?:'INITIAL'|'RAIN_CHANGE';placeIds?:string[]}",
+    "responseType": "Plan",
+    "status": "existing",
+    "screens": [
+      "aiSetup",
+      "itineraryMap"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      409,
+      429,
+      502,
+      503
+    ],
+    "events": [
+      "plan:created",
+      "notification:created",
+      "activity:created"
+    ],
+    "fixture": "planFixture; state.groups[0].plans"
+  },
+  {
+    "method": "GET",
+    "path": "/plans/:id",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "Plan",
+    "status": "existing",
+    "screens": [
+      "proposal",
+      "vote",
+      "itineraryMap"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "plan:updated",
+      "plan:applied"
+    ],
+    "fixture": "state.groups[0].plans; per-user myVote"
+  },
+  {
+    "method": "POST",
+    "path": "/plans/:id/votes",
+    "auth": "member",
+    "requestType": "{choice:'YES'|'NO'}",
+    "responseType": "Plan",
+    "status": "existing",
+    "screens": [
+      "vote"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      409,
+      429,
+      500
+    ],
+    "events": [
+      "plan:updated",
+      "plan:applied",
+      "notification:created",
+      "activity:created"
+    ],
+    "fixture": "state.votes / electorates"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/weather?mode=demo|live",
+    "auth": "member",
+    "requestType": "query: {mode:'demo'|'live'}",
+    "responseType": "WeatherSummary",
+    "status": "existing",
+    "screens": [
+      "weather",
+      "hourly",
+      "providers",
+      "home",
+      "map",
+      "itineraryMap"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      502,
+      503
+    ],
+    "events": [
+      "weather:updated"
+    ],
+    "fixture": "weatherFixture"
+  },
+  {
+    "method": "POST",
+    "path": "/groups/:id/weather/check",
+    "auth": "member",
+    "requestType": "{mode:'demo'|'live'}",
+    "responseType": "{weather:WeatherSummary;alert:Alert|null;proposal:Plan|null}",
+    "status": "existing",
+    "screens": [
+      "weather"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      409,
+      429,
+      502,
+      503
+    ],
+    "events": [
+      "weather:updated",
+      "alert:created",
+      "plan:created"
+    ],
+    "fixture": "weatherFixture + state.alerts"
+  },
+  {
+    "method": "POST",
+    "path": "/groups/:id/demo/rain",
+    "auth": "leader",
+    "requestType": "none",
+    "responseType": "{weather:WeatherSummary;alert:Alert;proposal:Plan}",
+    "status": "existing",
+    "screens": [
+      "dashboard",
+      "weather"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      409,
+      429,
+      500
+    ],
+    "events": [
+      "weather:updated",
+      "alert:created",
+      "plan:created",
+      "notification:created"
+    ],
+    "fixture": "MockDataAdapter.rain"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/alerts",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "Alert[]",
+    "status": "existing",
+    "screens": [
+      "alerts",
+      "weather"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "alert:created"
+    ],
+    "fixture": "state.alerts"
+  },
+  {
+    "method": "GET",
+    "path": "/radar",
+    "auth": "user",
+    "requestType": "none",
+    "responseType": "RadarData",
+    "status": "existing",
+    "screens": [
+      "radar",
+      "map"
+    ],
+    "errors": [
+      401,
+      429,
+      502,
+      503
+    ],
+    "events": [],
+    "fixture": "explicit no-observation fixture"
+  },
+  {
+    "method": "POST",
+    "path": "/groups/:id/rain-reports",
+    "auth": "member",
+    "requestType": "{latitude:number;longitude:number;accuracyM:number;condition:'RAIN'|'DRY';observedAt?:string}",
+    "responseType": "{id:string;verified:boolean;message:string}",
+    "status": "existing",
+    "screens": [
+      "rainReport"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "activity:created"
+    ],
+    "fixture": "MockDataAdapter rain-reports"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/verification",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "Verification",
+    "status": "existing",
+    "screens": [
+      "verification"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "explicit no-verification fixture"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/comments?placeId=:placeId",
+    "auth": "member",
+    "requestType": "query: {placeId:string} XOR {planId:string}",
+    "responseType": "Comment[]",
+    "status": "existing",
+    "screens": [
+      "placeDetail",
+      "planItem",
+      "proposal",
+      "vote"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "comment:created",
+      "comment:updated",
+      "comment:deleted"
+    ],
+    "fixture": "state.comments"
+  },
+  {
+    "method": "POST",
+    "path": "/groups/:id/comments",
+    "auth": "member",
+    "requestType": "{content:string} & ({placeId:string} | {planId:string}) [exactly one target]",
+    "responseType": "Comment",
+    "status": "existing",
+    "screens": [
+      "placeDetail",
+      "proposal",
+      "vote"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "comment:created",
+      "activity:created"
+    ],
+    "fixture": "state.comments"
+  },
+  {
+    "method": "PATCH",
+    "path": "/comments/:id",
+    "auth": "author",
+    "requestType": "{content:string}",
+    "responseType": "Comment",
+    "status": "existing",
+    "screens": [
+      "placeDetail",
+      "proposal",
+      "vote"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "comment:updated"
+    ],
+    "fixture": "state.comments"
+  },
+  {
+    "method": "DELETE",
+    "path": "/comments/:id",
+    "auth": "author",
+    "requestType": "path id: string",
+    "responseType": "{ok:true}",
+    "status": "existing",
+    "screens": [
+      "placeDetail",
+      "proposal",
+      "vote"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "comment:deleted"
+    ],
+    "fixture": "state.comments"
+  },
+  {
+    "method": "GET",
+    "path": "/notifications",
+    "auth": "user",
+    "requestType": "none",
+    "responseType": "Notification[]",
+    "status": "existing",
+    "screens": [
+      "notifications",
+      "notificationDetail",
+      "home"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "notification:created"
+    ],
+    "fixture": "state.notifications filtered by userId"
+  },
+  {
+    "method": "PATCH",
+    "path": "/notifications/:id/read",
+    "auth": "user",
+    "requestType": "path id: string",
+    "responseType": "Notification",
+    "status": "existing",
+    "screens": [
+      "notifications",
+      "notificationDetail"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [],
+    "fixture": "state.notifications current user only"
+  },
+  {
+    "method": "GET",
+    "path": "/groups/:id/activity",
+    "auth": "member",
+    "requestType": "path id: string",
+    "responseType": "Activity[]",
+    "status": "existing",
+    "screens": [
+      "activity"
+    ],
+    "errors": [
+      400,
+      401,
+      403,
+      404,
+      429,
+      500
+    ],
+    "events": [
+      "activity:created"
+    ],
+    "fixture": "state.activity[groupId]"
+  }
+]

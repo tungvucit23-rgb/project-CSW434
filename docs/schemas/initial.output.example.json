@@ -1,0 +1,26 @@
+{
+  "summary": "DEMO — phương án giả lập để nhóm biểu quyết.",
+  "items": [
+    {
+      "placeId": "demo_outdoor",
+      "startMinute": 480,
+      "endMinute": 540,
+      "reason": "Các nguồn chưa ghi nhận đồng thuận nguy cơ mưa trong khung giờ dự kiến.",
+      "factIds": [
+        "place:demo_outdoor",
+        "weather:2026-10-17T01:00:00.000Z"
+      ]
+    },
+    {
+      "placeId": "demo_outdoor_next",
+      "startMinute": 555,
+      "endMinute": 615,
+      "reason": "Phù hợp giờ mở cửa và khung thời tiết được cung cấp.",
+      "factIds": [
+        "place:demo_outdoor_next",
+        "travel:demo_outdoor:demo_outdoor_next",
+        "weather:2026-10-17T02:00:00.000Z"
+      ]
+    }
+  ]
+}

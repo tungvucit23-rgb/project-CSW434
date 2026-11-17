@@ -1,0 +1,1199 @@
+{
+  "auditedOn": "2026-11-17",
+  "routes": [
+    {
+      "name": "login",
+      "title": "Chào bạn, người đồng hành!"
+    },
+    {
+      "name": "register",
+      "title": "Bắt đầu hành trình"
+    },
+    {
+      "name": "forgotPassword",
+      "title": "Tìm lại tài khoản của bạn"
+    },
+    {
+      "name": "changePassword",
+      "title": "Đổi mật khẩu"
+    },
+    {
+      "name": "groupPreferences",
+      "title": "Sở thích của nhóm"
+    },
+    {
+      "name": "alerts",
+      "title": "Cảnh báo thời tiết"
+    },
+    {
+      "name": "notificationDetail",
+      "title": "Chi tiết thông báo"
+    },
+    {
+      "name": "home",
+      "title": "Một chuyến đi, nhiều niềm vui."
+    },
+    {
+      "name": "groups",
+      "title": "Những chuyến đi của bạn"
+    },
+    {
+      "name": "createGroup",
+      "title": "Tạo chuyến đi mới"
+    },
+    {
+      "name": "joinGroup",
+      "title": "Tham gia chuyến đi"
+    },
+    {
+      "name": "dashboard",
+      "title": "Chuyến đi của chúng mình"
+    },
+    {
+      "name": "members",
+      "title": "Những người đồng hành"
+    },
+    {
+      "name": "invite",
+      "title": "Rủ nhau đi thôi"
+    },
+    {
+      "name": "discover",
+      "title": "Đi đâu cũng có điều hay"
+    },
+    {
+      "name": "map",
+      "title": "Khám phá trên bản đồ"
+    },
+    {
+      "name": "recommendations",
+      "title": "Gợi ý chuyến đi phù hợp"
+    },
+    {
+      "name": "itineraryMap",
+      "title": "Lịch trình trên bản đồ"
+    },
+    {
+      "name": "filters",
+      "title": "Tìm điểm đến phù hợp"
+    },
+    {
+      "name": "placeDetail",
+      "title": "Một điểm dừng đáng nhớ"
+    },
+    {
+      "name": "wishlist",
+      "title": "Danh sách muốn đi"
+    },
+    {
+      "name": "timeline",
+      "title": "Lịch trình chung"
+    },
+    {
+      "name": "planItem",
+      "title": "Chi tiết điểm dừng"
+    },
+    {
+      "name": "proposal",
+      "title": "Phương án cho cả nhóm"
+    },
+    {
+      "name": "vote",
+      "title": "Cùng nhau quyết định"
+    },
+    {
+      "name": "history",
+      "title": "Các phiên bản lịch trình"
+    },
+    {
+      "name": "weather",
+      "title": "Đi theo nhịp thời tiết"
+    },
+    {
+      "name": "hourly",
+      "title": "Thời tiết từng giờ"
+    },
+    {
+      "name": "providers",
+      "title": "Dữ liệu đến từ đâu?"
+    },
+    {
+      "name": "radar",
+      "title": "Theo dõi những cơn mưa"
+    },
+    {
+      "name": "rainReport",
+      "title": "Thời tiết ở chỗ bạn"
+    },
+    {
+      "name": "verification",
+      "title": "Kiểm chứng dự báo"
+    },
+    {
+      "name": "notifications",
+      "title": "Có tin mới cho bạn"
+    },
+    {
+      "name": "budget",
+      "title": "Ngân sách chuyến đi"
+    },
+    {
+      "name": "activity",
+      "title": "Nhật ký nhóm"
+    },
+    {
+      "name": "aiSetup",
+      "title": "Trợ lý lập lịch"
+    },
+    {
+      "name": "profile",
+      "title": "Góc của bạn"
+    },
+    {
+      "name": "editProfile",
+      "title": "Chỉnh sửa hồ sơ"
+    },
+    {
+      "name": "settings",
+      "title": "Cài đặt ứng dụng"
+    },
+    {
+      "name": "help",
+      "title": "Đi Chung cùng bạn"
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 86,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "foundation/health",
+      "collection": "Firestore readiness",
+      "screens": [
+        "settings"
+      ],
+      "sourceErrors": [
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/register",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 112,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "auth + users",
+      "collection": "Firebase Authentication; users/{uid}",
+      "screens": [
+        "register"
+      ],
+      "sourceErrors": [
+        400,
+        409,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 139,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "auth + users",
+      "collection": "Firebase Authentication; users/{uid}",
+      "screens": [
+        "login"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/demo",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 98,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "auth + users",
+      "collection": "Firebase Authentication; users/{uid}",
+      "screens": [
+        "login",
+        "settings"
+      ],
+      "sourceErrors": [
+        400,
+        403,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/auth/me",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 158,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "auth + users",
+      "collection": "Firebase Authentication; users/{uid}",
+      "screens": [
+        "profile",
+        "home"
+      ],
+      "sourceErrors": [
+        401,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/auth/me",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 166,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "auth + users",
+      "collection": "Firebase Authentication; users/{uid}",
+      "screens": [
+        "editProfile"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/forgot-password",
+      "status": "Mock-only / Missing backend",
+      "sourceHandlerLine": null,
+      "targetNeedsMigration": false,
+      "targetMissing": true,
+      "module": "auth + users",
+      "collection": "Firebase Authentication; users/{uid}",
+      "screens": [
+        "forgotPassword"
+      ],
+      "sourceErrors": null,
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/change-password",
+      "status": "Mock-only / Missing backend",
+      "sourceHandlerLine": null,
+      "targetNeedsMigration": false,
+      "targetMissing": true,
+      "module": "auth + users",
+      "collection": "Firebase Authentication; users/{uid}",
+      "screens": [
+        "changePassword"
+      ],
+      "sourceErrors": null,
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/cities",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 188,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "catalogue/cities",
+      "collection": "cities/{cityId}",
+      "screens": [
+        "home",
+        "discover",
+        "map",
+        "recommendations",
+        "createGroup"
+      ],
+      "sourceErrors": [
+        401,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/places",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 196,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "catalogue/places",
+      "collection": "places/{placeId}",
+      "screens": [
+        "discover",
+        "filters",
+        "map",
+        "recommendations",
+        "aiSetup"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/places/:id",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 223,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "catalogue/places",
+      "collection": "places/{placeId}",
+      "screens": [
+        "placeDetail",
+        "map",
+        "planItem"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/groups",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 233,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "groups/membership",
+      "collection": "groups/{gid}; groups/{gid}/members/{uid}; preferences; uniqueKeys",
+      "screens": [
+        "home",
+        "groups"
+      ],
+      "sourceErrors": [
+        401,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "group:updated"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/groups",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 254,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "groups/membership",
+      "collection": "groups/{gid}; groups/{gid}/members/{uid}; preferences; uniqueKeys",
+      "screens": [
+        "createGroup"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        409,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "group:updated",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/groups/join",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 301,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "groups/membership",
+      "collection": "groups/{gid}; groups/{gid}/members/{uid}; preferences; uniqueKeys",
+      "screens": [
+        "joinGroup"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "group:updated",
+        "activity:created"
+      ],
+      "viewDependencies": [
+        "group:updated",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 333,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "groups/membership",
+      "collection": "groups/{gid}; groups/{gid}/members/{uid}; preferences; uniqueKeys",
+      "screens": [
+        "dashboard",
+        "members",
+        "invite",
+        "wishlist",
+        "timeline",
+        "history",
+        "budget",
+        "aiSetup"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "group:updated",
+        "wishlist:updated",
+        "plan:updated",
+        "plan:applied"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/groups/:id",
+      "status": "Requires contract clarification (C17/C21; SQL behavior verified)",
+      "sourceHandlerLine": 350,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "groups/membership",
+      "collection": "groups/{gid}; groups/{gid}/members/{uid}; preferences; uniqueKeys",
+      "screens": [
+        "budget",
+        "aiSetup"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        422,
+        429,
+        500
+      ],
+      "realtime": [
+        "group:updated",
+        "activity:created"
+      ],
+      "viewDependencies": [
+        "group:updated",
+        "plan:updated",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/preferences",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 448,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "groups/preferences",
+      "collection": "groups/{gid}/preferences/{uid}; groups/members",
+      "screens": [
+        "groupPreferences",
+        "aiSetup"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "group:updated"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/groups/:id/preferences",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 466,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "groups/preferences",
+      "collection": "groups/{gid}/preferences/{uid}; groups/members",
+      "screens": [
+        "groupPreferences",
+        "aiSetup"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "group:updated",
+        "activity:created"
+      ],
+      "viewDependencies": [
+        "group:updated",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/wishlist",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 440,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/wishlist",
+      "collection": "groups/{gid}/wishlist/{placeId}; places",
+      "screens": [
+        "wishlist",
+        "map",
+        "aiSetup"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "wishlist:updated"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/groups/:id/wishlist",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 500,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/wishlist",
+      "collection": "groups/{gid}/wishlist/{placeId}; places",
+      "screens": [
+        "discover",
+        "placeDetail",
+        "map",
+        "recommendations"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "wishlist:updated"
+      ],
+      "viewDependencies": [
+        "wishlist:updated",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/groups/:id/wishlist/:placeId",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 521,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/wishlist",
+      "collection": "groups/{gid}/wishlist/{placeId}; places",
+      "screens": [
+        "wishlist"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "wishlist:updated"
+      ],
+      "viewDependencies": [
+        "wishlist:updated",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/ai/recommendations",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 563,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "ai/discovery + facts",
+      "collection": "places; groups/preferences; weatherSnapshots; aiExecutions",
+      "screens": [
+        "recommendations",
+        "map"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        409,
+        422,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/plans",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 535,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "plans/history",
+      "collection": "plans where groupId; places; votes",
+      "screens": [
+        "history",
+        "proposal"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "plan:created",
+        "plan:updated",
+        "plan:applied"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/groups/:id/plans/generate",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 564,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "ai/planner + plans",
+      "collection": "plans; votes; aiExecutions; groups; weatherSnapshots",
+      "screens": [
+        "aiSetup",
+        "itineraryMap"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        409,
+        422,
+        429,
+        500
+      ],
+      "realtime": [
+        "plan:created",
+        "activity:created",
+        "notification:created"
+      ],
+      "viewDependencies": [
+        "plan:created",
+        "notification:created",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/plans/:id",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 543,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "plans/read",
+      "collection": "plans/{pid}; votes; places",
+      "screens": [
+        "proposal",
+        "vote",
+        "itineraryMap"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "plan:updated",
+        "plan:applied"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/plans/:id/votes",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 585,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "plans/voting",
+      "collection": "plans/{pid}; plans/{pid}/votes/{uid}; groups; outbox",
+      "screens": [
+        "vote"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        409,
+        429,
+        500
+      ],
+      "realtime": [
+        "plan:updated",
+        "activity:created",
+        "plan:applied",
+        "group:updated",
+        "notification:created"
+      ],
+      "viewDependencies": [
+        "plan:updated",
+        "plan:applied",
+        "notification:created",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/weather",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 709,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "weather/checks + workers",
+      "collection": "weatherSnapshots; weatherChecks; groups/alerts; plans; outbox",
+      "screens": [
+        "weather",
+        "hourly",
+        "providers",
+        "home",
+        "map",
+        "itineraryMap"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "weather:updated"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/groups/:id/weather/check",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 719,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "weather/checks + workers",
+      "collection": "weatherSnapshots; weatherChecks; groups/alerts; plans; outbox",
+      "screens": [
+        "weather"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        409,
+        429,
+        500
+      ],
+      "realtime": [
+        "weather:updated",
+        "alert:created",
+        "plan:created",
+        "activity:created",
+        "notification:created"
+      ],
+      "viewDependencies": [
+        "weather:updated",
+        "alert:created",
+        "plan:created"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/groups/:id/demo/rain",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 727,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "weather/checks + workers",
+      "collection": "weatherSnapshots; weatherChecks; groups/alerts; plans; outbox",
+      "screens": [
+        "dashboard",
+        "weather"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        409,
+        429,
+        500
+      ],
+      "realtime": [
+        "weather:updated",
+        "alert:created",
+        "plan:created",
+        "activity:created",
+        "notification:created"
+      ],
+      "viewDependencies": [
+        "weather:updated",
+        "alert:created",
+        "plan:created",
+        "notification:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/alerts",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 751,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "weather/alerts",
+      "collection": "groups/{gid}/alerts/{aid}; uniqueKeys",
+      "screens": [
+        "alerts",
+        "weather"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "alert:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radar",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 821,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "weather/radar",
+      "collection": "Provider metadata/cache; không có fake radar collection",
+      "screens": [
+        "radar",
+        "map"
+      ],
+      "sourceErrors": [
+        401,
+        429,
+        500,
+        502
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "POST",
+      "path": "/groups/:id/rain-reports",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 734,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "weather/reports",
+      "collection": "rainReports; weatherChecks",
+      "screens": [
+        "rainReport"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "weather:updated"
+      ],
+      "viewDependencies": [
+        "activity:created"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/verification",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 766,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "weather/verification",
+      "collection": "forecastVerifications; rainReports; weatherChecks",
+      "screens": [
+        "verification"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/comments",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 629,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/comments",
+      "collection": "comments; groups/members; wishlist/plans",
+      "screens": [
+        "placeDetail",
+        "planItem",
+        "proposal",
+        "vote"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "comment:created",
+        "comment:updated",
+        "comment:deleted"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/groups/:id/comments",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 645,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/comments",
+      "collection": "comments; groups/members; wishlist/plans",
+      "screens": [
+        "placeDetail",
+        "proposal",
+        "vote"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "comment:created"
+      ],
+      "viewDependencies": [
+        "comment:created",
+        "activity:created"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/comments/:id",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 670,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/comments",
+      "collection": "comments/{cid}; groups/members",
+      "screens": [
+        "placeDetail",
+        "proposal",
+        "vote"
+      ],
+      "sourceErrors": [
+        400,
+        401,
+        403,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "comment:updated"
+      ],
+      "viewDependencies": [
+        "comment:updated"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/comments/:id",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 693,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/comments",
+      "collection": "comments/{cid}; groups/members",
+      "screens": [
+        "placeDetail",
+        "proposal",
+        "vote"
+      ],
+      "sourceErrors": [
+        401,
+        403,
+        404,
+        429,
+        500
+      ],
+      "realtime": [
+        "comment:deleted"
+      ],
+      "viewDependencies": [
+        "comment:deleted"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/notifications",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 794,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/notifications",
+      "collection": "users/{uid}/notifications/{nid}",
+      "screens": [
+        "notifications",
+        "notificationDetail",
+        "home"
+      ],
+      "sourceErrors": [
+        401,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "notification:created"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/notifications/:id/read",
+      "status": "Existing but requires migration",
+      "sourceHandlerLine": 807,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/notifications",
+      "collection": "users/{uid}/notifications/{nid}",
+      "screens": [
+        "notifications",
+        "notificationDetail"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": []
+    },
+    {
+      "method": "GET",
+      "path": "/groups/:id/activity",
+      "status": "Existing and verified",
+      "sourceHandlerLine": 774,
+      "targetNeedsMigration": true,
+      "targetMissing": false,
+      "module": "collaboration/activity",
+      "collection": "groups/{gid}/activity/{aid}",
+      "screens": [
+        "activity"
+      ],
+      "sourceErrors": [
+        401,
+        404,
+        429,
+        500
+      ],
+      "realtime": [],
+      "viewDependencies": [
+        "activity:created"
+      ]
+    }
+  ],
+  "firestoreSchemaCollections": 23
+}

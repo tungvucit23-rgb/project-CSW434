@@ -1,0 +1,16 @@
+{
+  "summary": "DEMO — đề xuất chuyển phần sắp đi vào trong nhà; cần nhóm biểu quyết.",
+  "items": [
+    {
+      "placeId": "demo_indoor",
+      "startMinute": 555,
+      "endMinute": 615,
+      "reason": "Ưu tiên không gian trong nhà vì các nguồn ghi nhận nguy cơ mưa.",
+      "factIds": [
+        "place:demo_indoor",
+        "travel:demo_outdoor:demo_indoor",
+        "weather:2026-10-17T02:00:00.000Z"
+      ]
+    }
+  ]
+}

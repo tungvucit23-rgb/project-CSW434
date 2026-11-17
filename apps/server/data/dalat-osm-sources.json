@@ -1,0 +1,1172 @@
+{
+  "license": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "queries": [
+    "[out:json][timeout:25];nwr[\"name\"][\"tourism\"](around:20000,11.9404,108.4583);out center tags;",
+    "[out:json][timeout:25];nwr[\"name\"][\"amenity\"](around:20000,11.9404,108.4583);out center tags;",
+    "[out:json][timeout:25];nwr[\"name\"][\"natural\"](around:20000,11.9404,108.4583);out center tags;"
+  ],
+  "snapshots": [
+    {
+      "timestamp_osm_base": "2026-11-10T05:57:04Z",
+      "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+    },
+    {
+      "timestamp_osm_base": "2026-11-10T06:03:18Z",
+      "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+    },
+    {
+      "timestamp_osm_base": "2026-11-10T06:04:20Z",
+      "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+    }
+  ],
+  "elements": [
+    {
+      "type": "relation",
+      "id": 2390139,
+      "center": {
+        "lat": 11.9450109,
+        "lon": 108.445363
+      },
+      "tags": {
+        "name": "Hồ Xuân Hương",
+        "name:en": "Xuân Hương Lake",
+        "name:fr": "Lac Xuan Huong",
+        "name:ja": "スアンフーン湖",
+        "name:ko": "쑤언흐엉호",
+        "name:zh": "春香湖",
+        "natural": "water",
+        "old_name": "Grand Lac",
+        "type": "multipolygon",
+        "water": "reservoir",
+        "wikidata": "Q10772055"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1152350875,
+      "lat": 11.9405756,
+      "lon": 108.4599038,
+      "tags": {
+        "name": "Bảo Tàng Lâm Đồng",
+        "name:en": "Lam Dong Museum",
+        "opening_hours": "Mo-Su 07:15-11:30, 13:30-17:00",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 452519411,
+      "center": {
+        "lat": 11.9361571,
+        "lon": 108.4377041
+      },
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "church",
+        "building:architecture": "french_colonial",
+        "check_date": "2026-07-01",
+        "name": "Nhà thờ Chánh tòa",
+        "name:en": "Cathedral Saint Nicholas",
+        "name:fr": "Cathédrale Saint Nicolas",
+        "name:vi": "Nhà thờ Chánh Tòa",
+        "religion": "christian"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5274759821,
+      "lat": 11.9300468,
+      "lon": 108.4296735,
+      "tags": {
+        "addr:housenumber": "1",
+        "addr:street": "Triệu Việt Vương",
+        "name": "Dinh III Bảo Đại",
+        "name:ru": "Дворец III Бао Дай",
+        "name:zh": "保大夏宫",
+        "opening_hours": "Mo-Su 07:00-11:00, 13:00-17:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4368051989,
+      "lat": 11.8828709,
+      "lon": 108.4112222,
+      "tags": {
+        "name": "Đường hầm điêu khắc",
+        "name:de": "Skulpturen Tunnel",
+        "name:en": "Clay Tunnels - Dalat Star",
+        "name:vi": "Đường hầm điêu khắc",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 17877171,
+      "center": {
+        "lat": 11.9416078,
+        "lon": 108.4544798
+      },
+      "tags": {
+        "building": "train_station;yes",
+        "building:architecture": "french_colonial",
+        "name": "Ga Đà Lạt",
+        "name:en": "Da Lat Railway Station",
+        "public_transport": "station",
+        "railway": "station",
+        "tourism": "attraction",
+        "type": "multipolygon",
+        "wikipedia": "vi:Ga Đà Lạt",
+        "year_of_construction": "1938"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1160978742,
+      "lat": 11.9781853,
+      "lon": 108.4499229,
+      "tags": {
+        "name": "Thung Lũng Tình Yêu",
+        "name:en": "Valley of Love",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6546337786,
+      "lat": 11.8777526,
+      "lon": 108.5603366,
+      "tags": {
+        "name": "đồi chè cầu đất",
+        "tourism": "artwork"
+      }
+    },
+    {
+      "type": "way",
+      "id": 125165263,
+      "center": {
+        "lat": 11.8907821,
+        "lon": 108.4245097
+      },
+      "tags": {
+        "name": "Hồ Tuyền Lâm",
+        "name:en": "Tuyen Lam Lake",
+        "name:ko": "뚜옌럼호",
+        "natural": "water",
+        "old_name": "Hồ Đa Tria",
+        "old_name:en": "Da Tria Reservoir",
+        "water": "reservoir",
+        "wikidata": "Q10772031",
+        "wikimedia_commons": "Category:Tuyen Lam Lake",
+        "wikipedia": "ko:뚜옌럼호"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1164597191,
+      "lat": 11.9012375,
+      "lon": 108.4489764,
+      "tags": {
+        "name": "Thác Datanla",
+        "name:en": "Datanla Fall",
+        "name:ko": "다딴라 폭포",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4096525696,
+      "lat": 11.8765192,
+      "lon": 108.4701041,
+      "tags": {
+        "name": "Thác Prenn",
+        "name:en": "Prenn Falls",
+        "name:ko": "프렌 폭포",
+        "source": "Bing",
+        "tourism": "attraction",
+        "waterway": "waterfall",
+        "wikidata": "Q10825669",
+        "wikipedia": "ko:프렌 폭포"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2688028631,
+      "lat": 12.0472573,
+      "lon": 108.4405826,
+      "tags": {
+        "alt_name": "Núi Langbiang;Núi Bà",
+        "alt_name:en": "Langbiang Mountain",
+        "ele": "2167",
+        "name": "Núi Lang Biang",
+        "name:en": "Lang Biang Mountain",
+        "name:ru": "Ланг Бьянг",
+        "name:zh": "浪平山",
+        "natural": "peak",
+        "wikidata": "Q10841746",
+        "wikimedia_commons": "Category:Langbiang Mountain",
+        "wikipedia": "vi:Núi Langbiang"
+      }
+    },
+    {
+      "type": "way",
+      "id": 361851927,
+      "center": {
+        "lat": 11.9502595,
+        "lon": 108.4370232
+      },
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "house",
+        "man_made": "tower",
+        "name": "Chùa Linh Sơn",
+        "name:en": "Linh Son Pagoda",
+        "name:ko": "린선 사원",
+        "religion": "buddhist",
+        "tower:type": "pagoda",
+        "wikidata": "Q6554125",
+        "wikimedia_commons": "Category:Linh Son Pagoda",
+        "wikipedia": "ko:린선 사원",
+        "year_of_construction": "1940"
+      }
+    },
+    {
+      "type": "way",
+      "id": 361692265,
+      "center": {
+        "lat": 11.9496624,
+        "lon": 108.430137
+      },
+      "tags": {
+        "alt_name": "Nhà thờ Mai Anh",
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "building:architecture": "french_colonial",
+        "building:levels": "3",
+        "name": "Nhà thờ Domaine de Marie",
+        "name:en": "Domaine de Marie",
+        "religion": "christian",
+        "year_of_construction": "1943"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 20657435,
+      "center": {
+        "lat": 11.9345615,
+        "lon": 108.4306807
+      },
+      "tags": {
+        "addr:city": "Da Lat City",
+        "addr:housenumber": "3",
+        "addr:province": "Lam Dong",
+        "addr:street": "Huỳnh Thúc Kháng",
+        "building": "yes",
+        "building:levels": "3",
+        "check_date": "2026-05-07",
+        "fee": "yes",
+        "internet_access": "wlan",
+        "layer": "1",
+        "name": "Crazy House",
+        "name:de": "Crazy House",
+        "name:en": "Hang Nga Crazy House",
+        "name:vi": "Ngôi nhà quái dị",
+        "opening_hours": "Mo-Su 08:30-19:00",
+        "payment:cards": "no",
+        "payment:cash": "yes",
+        "payment:credit_cards": "no",
+        "payment:debit_cards": "no",
+        "phone": "0633822070",
+        "tourism": "museum",
+        "type": "multipolygon",
+        "website": "https://www.crazyhouse.vn/",
+        "wikidata": "Q1171693",
+        "wikimedia_commons": "Category:Hang Nga guesthouse",
+        "wikipedia": "de:Das verrückte Haus",
+        "wikipedia:en": "Hằng Nga Guesthouse"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6548795185,
+      "lat": 11.9475766,
+      "lon": 108.4084534,
+      "tags": {
+        "name": "làng hoa vạn thành mới",
+        "tourism": "artwork"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1509937793,
+      "center": {
+        "lat": 12.0265442,
+        "lon": 108.3618731
+      },
+      "tags": {
+        "description": "eco-tourism village with cultural events and performance,\nreconstruction the atmosphere of a mountain village of the Central Highlands (Tây Nguyên) and create a space for outdoor recreation.\n\nThe main ethnic group the concept is based on:\nK'Ho (K'ho)\nThes",
+        "leisure": "park",
+        "name": "Làng Cu Lần",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4330922989,
+      "lat": 12.0026337,
+      "lon": 108.3473592,
+      "tags": {
+        "name": "Ma Rừng Lữ Quán",
+        "tourism": "artwork"
+      }
+    },
+    {
+      "type": "way",
+      "id": 473771570,
+      "center": {
+        "lat": 11.9570206,
+        "lon": 108.4783248
+      },
+      "tags": {
+        "alt_name:en": "Lake of Sighs",
+        "alt_name:fr": "Lac des Soupirs",
+        "name": "Hồ Than Thở",
+        "name:en": "Than Tho Lake",
+        "name:fr": "Lac Than Tho",
+        "natural": "water",
+        "water": "reservoir"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11810221807,
+      "lat": 11.9821284,
+      "lon": 108.4040549,
+      "tags": {
+        "ele": "1584",
+        "name": "Da Phu hill",
+        "name:en": "Da Phu hill",
+        "name:vi": "Đồi Đa Phú",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 4119185,
+      "center": {
+        "lat": 11.9434245,
+        "lon": 108.4372121
+      },
+      "tags": {
+        "amenity": "marketplace",
+        "building": "yes",
+        "name": "Chợ Đà Lạt",
+        "name:en": "Dalat Market",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4135863789,
+      "lat": 11.9772623,
+      "lon": 108.4474339,
+      "tags": {
+        "addr:housenumber": "258",
+        "addr:street": "Mai Anh Đào",
+        "name": "XQ Da Lat Historical Village",
+        "name:fr": "Centre historique de la broderie",
+        "name:ru": "шёлковая галерея",
+        "opening_hours": "Mo-Su 08:00-17:30",
+        "phone": "84633831343",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 7758125,
+      "center": {
+        "lat": 11.9521331,
+        "lon": 108.4706527
+      },
+      "tags": {
+        "building": "yes",
+        "building:levels": "1",
+        "name": "Nhà lao thiếu nhi Đà Lạt",
+        "name:en": "Đà Lạt Youth Prison Museum",
+        "tourism": "museum",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "type": "way",
+      "id": 141724809,
+      "center": {
+        "lat": 11.9997078,
+        "lon": 108.3704154
+      },
+      "tags": {
+        "name": "Hồ Suối Vàng",
+        "natural": "water",
+        "water": "reservoir"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1303678469,
+      "center": {
+        "lat": 11.9455216,
+        "lon": 108.4405561
+      },
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "name": "Giáo sở Salêdiêng Don Bosco",
+        "religion": "christian"
+      }
+    },
+    {
+      "type": "node",
+      "id": 357447237,
+      "lat": 11.9230389,
+      "lon": 108.4434298,
+      "tags": {
+        "aerialway": "station",
+        "aerialway:access": "both",
+        "aerialway:summer:access": "both",
+        "name": "Cáp Treo Đà Lạt",
+        "name:en": "Da Lat Cable Car",
+        "opening_hours": "Mo-Su 08:00-17:00",
+        "public_transport": "station",
+        "tourism": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4293297115,
+      "lat": 12.0067009,
+      "lon": 108.3827889,
+      "tags": {
+        "name": "Thung Lũng Vàng",
+        "name:ru": "Заповедник Thung Lũng Vàng",
+        "tourism": "artwork"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4299365893,
+      "lat": 11.9348406,
+      "lon": 108.4672653,
+      "tags": {
+        "name": "Coffee weasels plantation",
+        "opening_hours": "Mo-Su 07:30-22:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4589456390,
+      "lat": 11.9446106,
+      "lon": 108.4375604,
+      "tags": {
+        "addr:housenumber": "57",
+        "addr:street": "Phan Bội Châu",
+        "air_conditioning": "no",
+        "amenity": "bar",
+        "name": "Maze Bar",
+        "name:en": "Maze Bar",
+        "name:ru": "Кафе «Сто крыш»",
+        "name:vi": "Cafe Đường Lên Trăng",
+        "opening_hours": "Mo-Su 20:00-24:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4956621222,
+      "lat": 11.940827,
+      "lon": 108.430796,
+      "tags": {
+        "name": "Ngộ quán",
+        "name:vi": "Ngộ quán",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5188469121,
+      "lat": 11.9548481,
+      "lon": 108.3861577,
+      "tags": {
+        "name": "Aoi Cottage Garden",
+        "tourism": "picnic_site"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5666385423,
+      "lat": 11.9461533,
+      "lon": 108.5130702,
+      "tags": {
+        "name": "Vườn Hoa Cẩm Tú Cầu",
+        "tourism": "viewpoint"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5811546454,
+      "lat": 11.9743361,
+      "lon": 108.4321993,
+      "tags": {
+        "name": "Vườn dâu 88",
+        "name:en": "strawberry 88",
+        "tourism": "artwork"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6165224585,
+      "lat": 11.9289112,
+      "lon": 108.4515958,
+      "tags": {
+        "name": "Khu du lịch Lá Phong",
+        "tourism": "artwork"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6322222686,
+      "lat": 11.9108099,
+      "lon": 108.426294,
+      "tags": {
+        "name": "Garnet Cellar Farden",
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "phone": "+84907088039",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6341135085,
+      "lat": 12.0462001,
+      "lon": 108.3384789,
+      "tags": {
+        "name": "Tuyệt Tình Cốc",
+        "name:en": "Blue lake",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9633116697,
+      "lat": 11.9385347,
+      "lon": 108.4441353,
+      "tags": {
+        "name": "Ar Ti So",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 9644488565,
+      "lat": 11.9429755,
+      "lon": 108.4380122,
+      "tags": {
+        "name": "3D World",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13059586149,
+      "lat": 11.926564,
+      "lon": 108.3715298,
+      "tags": {
+        "alt_name": "Mario Kart Ride",
+        "contact:email": "caonguyenhoadalat@gmail.com",
+        "contact:facebook": "https://www.facebook.com/KDLSinhThaiCaoNguyenHoaDaLat",
+        "contact:instagram": "https://www.instagram.com/caonguyenhoadalat/",
+        "contact:phone": "+8498 385 55 56",
+        "contact:tiktok": "https://www.tiktok.com/@caonguyenhoadl",
+        "contact:youtube": "youtube.com/%40caonguyenhoadalat944",
+        "internet_access": "wlan",
+        "name": "KDL Sinh Thái Cao Nguyên Hoa Đà Lạt",
+        "name:en": "Dalat Flower Plateau Eco-Tourism Area",
+        "short_name": "Cao Nguyên Hoa Đà Lạt",
+        "short_name:en": "Dalat Flower Plateau",
+        "tourism": "theme_park"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13072770501,
+      "lat": 11.9485347,
+      "lon": 108.4029778,
+      "tags": {
+        "name": "Làng Cổ Tích",
+        "name:ru": "Деревня хоббитов",
+        "opening_hours": "Mo-Su 07:30-17:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13118850665,
+      "lat": 11.9437619,
+      "lon": 108.4343118,
+      "tags": {
+        "artwork_type": "mural",
+        "name": "Dốc Nhà Làng",
+        "tourism": "artwork"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13953793101,
+      "lat": 11.9550571,
+      "lon": 108.4424408,
+      "tags": {
+        "addr:housenumber": "17",
+        "addr:street": "Phù Đổng Thiên Vương",
+        "check_date": "2026-06-20",
+        "check_date:opening_hours": "2026-06-20",
+        "name": "Memories +84 Gallery",
+        "opening_hours": "Mo-Su 07:30-22:00",
+        "tourism": "gallery"
+      }
+    },
+    {
+      "type": "way",
+      "id": 361692317,
+      "center": {
+        "lat": 11.9463059,
+        "lon": 108.4262529
+      },
+      "tags": {
+        "building": "yes",
+        "name": "Museum Madam De Dalat",
+        "tourism": "museum"
+      }
+    },
+    {
+      "type": "way",
+      "id": 473088090,
+      "center": {
+        "lat": 11.9712588,
+        "lon": 108.4218016
+      },
+      "tags": {
+        "building": "public",
+        "building:architecture": "french_colonial",
+        "name": "Viện Khoa học sự sống (cơ sở 2)",
+        "old_name": "Viện Nghiên cứu Khoa học Tây Nguyên",
+        "old_name:en": "Tay Nguyen Biological Institute",
+        "tourism": "museum",
+        "year_of_construction": "1952"
+      }
+    },
+    {
+      "type": "way",
+      "id": 521598336,
+      "center": {
+        "lat": 11.9363896,
+        "lon": 108.4497365
+      },
+      "tags": {
+        "addr:street": "Trần Hưng Đạo",
+        "leisure": "park",
+        "name": "French Quarter",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1486332120,
+      "center": {
+        "lat": 12.0020825,
+        "lon": 108.3498182
+      },
+      "tags": {
+        "area": "yes",
+        "fee": "yes",
+        "name": "Devil Mountain Tourist Area",
+        "opening_hours": "Mo-Su 08:00-17:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1486336890,
+      "center": {
+        "lat": 12.0019879,
+        "lon": 108.350639
+      },
+      "tags": {
+        "area": "yes",
+        "fee": "yes",
+        "name": "Khu du Lịch Vườn Thiền Vi Diệu Thức",
+        "opening_hours": "Mo-Sa 08:00-17:00",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1515399859,
+      "center": {
+        "lat": 11.9487973,
+        "lon": 108.4271423
+      },
+      "tags": {
+        "addr:housenumber": "19A",
+        "addr:street": "Mai Hắc Đế",
+        "building": "greenhouse",
+        "leisure": "garden",
+        "name": "Vườn dâu Công nghệ cao Bình Yên",
+        "name:en": "Binh Yen High-Tech Strawberry Garden",
+        "operator": "PHAM HUU LOI",
+        "tourism": "attraction"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2090212777,
+      "lat": 12.0325584,
+      "lon": 108.4137888,
+      "tags": {
+        "ele": "1929",
+        "name": "Đồi Radar",
+        "name:en": "Radar Peak",
+        "name:vi": "Đồi Radar",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7202547685,
+      "lat": 11.8791109,
+      "lon": 108.429585,
+      "tags": {
+        "ele": "1691",
+        "name": "Núi Pin Hatt",
+        "name:en": "Samson mountain",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11048391402,
+      "lat": 11.9467725,
+      "lon": 108.4446208,
+      "tags": {
+        "ele": "1503",
+        "name": "Đồi Cù",
+        "natural": "peak",
+        "wikidata": "Q10841893",
+        "wikimedia_commons": "Category:Cù Hill",
+        "wikipedia": "vi:Đồi Cù"
+      }
+    },
+    {
+      "type": "way",
+      "id": 64737684,
+      "center": {
+        "lat": 12.0179401,
+        "lon": 108.3846256
+      },
+      "tags": {
+        "name": "Hồ Đan Kia",
+        "natural": "water",
+        "water": "reservoir"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3864396278,
+      "lat": 11.9448009,
+      "lon": 108.4349506,
+      "tags": {
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "name": "Bicycle up"
+      }
+    },
+    {
+      "type": "way",
+      "id": 164038760,
+      "center": {
+        "lat": 11.9716492,
+        "lon": 108.4133352
+      },
+      "tags": {
+        "name": "Hồ Kim Thạch",
+        "natural": "water",
+        "water": "reservoir"
+      }
+    },
+    {
+      "type": "way",
+      "id": 232458166,
+      "center": {
+        "lat": 11.9569302,
+        "lon": 108.4284141
+      },
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "name": "Chùa Linh Quang",
+        "name:en": "Linh Quang Pagoda",
+        "religion": "buddhist"
+      }
+    },
+    {
+      "type": "way",
+      "id": 473547277,
+      "center": {
+        "lat": 11.9640103,
+        "lon": 108.4438625
+      },
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "public",
+        "name": "Thiền viện Vạn Hạnh",
+        "religion": "buddhist"
+      }
+    },
+    {
+      "type": "way",
+      "id": 515288602,
+      "center": {
+        "lat": 11.9438798,
+        "lon": 108.4220243
+      },
+      "tags": {
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "building:levels": "1",
+        "name": "Nhà thờ Cam Ly",
+        "religion": "christian"
+      }
+    },
+    {
+      "type": "relation",
+      "id": 18645373,
+      "center": {
+        "lat": 11.927672,
+        "lon": 108.4602709
+      },
+      "tags": {
+        "addr:city": "Thành phố Đà Lạt",
+        "addr:housenumber": "31C",
+        "addr:province": "Lâm Đồng",
+        "addr:street": "Khe Sanh",
+        "addr:subdistrict": "Phường 10",
+        "amenity": "place_of_worship",
+        "building": "yes",
+        "name": "Chùa Tàu (Thiên Vương Cổ Sát)",
+        "religion": "buddhist",
+        "type": "multipolygon"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4070796725,
+      "lat": 11.9442999,
+      "lon": 108.4358347,
+      "tags": {
+        "addr:city": "Da Lat",
+        "addr:housenumber": "6",
+        "addr:province": "Lam Dong",
+        "addr:street": "Khu Hòa Bình",
+        "addr:subdistrict": "1",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "yes",
+        "name": "Cafe Tùng",
+        "smoking": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4206500720,
+      "lat": 11.9418201,
+      "lon": 108.4338744,
+      "tags": {
+        "addr:city": "Dalat",
+        "addr:housenumber": "63Bis",
+        "addr:postcode": "670000",
+        "addr:province": "Lam Dong",
+        "addr:street": "Ba Tháng Hai",
+        "air_conditioning": "no",
+        "amenity": "cafe",
+        "bar": "no",
+        "cuisine": "pasta;international;breakfast;vietnamese;local;coffee_shop",
+        "diet:vegan": "yes",
+        "internet_access": "wlan",
+        "name": "An Cafe",
+        "opening_hours": "07:00-22:00",
+        "outdoor_seating": "yes",
+        "phone": "+84975735521",
+        "smoking": "outside"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4281674493,
+      "lat": 11.944873,
+      "lon": 108.4348706,
+      "tags": {
+        "addr:housenumber": "70",
+        "addr:street": "Trương Công Định",
+        "amenity": "cafe",
+        "name": "News & Art Café"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4426130491,
+      "lat": 11.9469104,
+      "lon": 108.4406502,
+      "tags": {
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "name": "Thong Dalat Space",
+        "name:vi": "Thong Dalat Space"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4601279191,
+      "lat": 11.9569186,
+      "lon": 108.435107,
+      "tags": {
+        "addr:housenumber": "198",
+        "addr:street": "Nguyễn Công Trứ",
+        "amenity": "cafe",
+        "cuisine": "american;coffee_shop;vietnamese",
+        "internet_access": "wlan",
+        "name": "La Viet Coffee"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4798005122,
+      "lat": 12.0099898,
+      "lon": 108.4130615,
+      "tags": {
+        "amenity": "cafe",
+        "name": "K'ho Coffee",
+        "name:nl": "K'ho Coffee",
+        "phone": "+84974047049",
+        "website": "http://www.khocoffee.com"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5334556721,
+      "lat": 11.9343773,
+      "lon": 108.4315149,
+      "tags": {
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "name": "Maybe Blue Coffee"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5955859585,
+      "lat": 11.9418831,
+      "lon": 108.4671034,
+      "tags": {
+        "amenity": "cafe",
+        "check_date": "2026-02-08",
+        "name": "Gâu Garden"
+      }
+    },
+    {
+      "type": "node",
+      "id": 5980607285,
+      "lat": 11.9466549,
+      "lon": 108.4405846,
+      "tags": {
+        "addr:housenumber": "80",
+        "addr:street": "Bùi Thị Xuân",
+        "amenity": "cafe",
+        "name": "Wood stock"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6152524285,
+      "lat": 11.9443315,
+      "lon": 108.454585,
+      "tags": {
+        "addr:housenumber": "59",
+        "addr:street": "Nguyễn Trãi",
+        "amenity": "cafe",
+        "name": "Still Cafe",
+        "opening_hours": "Mo-Su 07:00-22:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6282366185,
+      "lat": 11.9410611,
+      "lon": 108.4834747,
+      "tags": {
+        "addr:street": "Phường 11, Thành phố Đà Lạt, Lâm Đồng,",
+        "amenity": "cafe",
+        "name": "Reply 1994"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6312483785,
+      "lat": 11.949256,
+      "lon": 108.4276498,
+      "tags": {
+        "addr:street": "Hẻm 6 Mai Anh, Phường 6, Thành phố Đà Lạt, Lâm Đồng, Vietnam",
+        "amenity": "cafe",
+        "name": "Vườn Yên"
+      }
+    },
+    {
+      "type": "node",
+      "id": 6418806785,
+      "lat": 11.9441516,
+      "lon": 108.4884062,
+      "tags": {
+        "amenity": "cafe",
+        "name": "Sunny Farm"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7140136187,
+      "lat": 11.9501663,
+      "lon": 108.456605,
+      "tags": {
+        "addr:housenumber": "238",
+        "addr:street": "Yersin",
+        "amenity": "cafe",
+        "name": "Tiệm cafe Cô Bông",
+        "name:en": "Cô Bông coffee",
+        "phone": "0938299604"
+      }
+    },
+    {
+      "type": "node",
+      "id": 7236155987,
+      "lat": 11.9201166,
+      "lon": 108.4421181,
+      "tags": {
+        "amenity": "cafe",
+        "check_date": "2026-01-22",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "LululoLa Coffee+"
+      }
+    },
+    {
+      "type": "node",
+      "id": 8310652209,
+      "lat": 11.9006985,
+      "lon": 108.4341959,
+      "tags": {
+        "addr:city": "Đà Lạt",
+        "addr:housenumber": "18",
+        "addr:neighbourhood": "18",
+        "addr:state": "Lâm Đồng",
+        "addr:street": "Tuyền Lâm",
+        "air_conditioning": "no",
+        "amenity": "cafe",
+        "bar": "yes",
+        "internet_access": "wlan",
+        "internet_access:fee": "yes",
+        "name": "The Seen House",
+        "outdoor_seating": "yes",
+        "phone": "+"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10252337809,
+      "lat": 11.9411877,
+      "lon": 108.4647331,
+      "tags": {
+        "amenity": "cafe",
+        "name": "mây lang thang acoustic",
+        "opening_hours": "Mo-Su 07:00-22:00"
+      }
+    },
+    {
+      "type": "node",
+      "id": 10846172405,
+      "lat": 11.9385337,
+      "lon": 108.4633554,
+      "tags": {
+        "addr:housenumber": "25",
+        "addr:street": "Hoàng Hoa Thám",
+        "amenity": "cafe",
+        "name": "The Mountain View"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11836926101,
+      "lat": 11.9626641,
+      "lon": 108.389072,
+      "tags": {
+        "addr:city": "Đà Lạt",
+        "addr:province": "Lâm Đồng",
+        "addr:street": "Cam Ly",
+        "addr:subdistrict": "Phường 7",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Nông Trại Cún Puppy Farm",
+        "phone": "+84 263 370 9333"
+      }
+    },
+    {
+      "type": "node",
+      "id": 11840626298,
+      "lat": 11.9499845,
+      "lon": 108.4912153,
+      "tags": {
+        "addr:city": "Đà Lạt",
+        "addr:province": "Lâm Đồng",
+        "addr:street": "Huỳnh Tấn Phát",
+        "addr:subdistrict": "Phường 11",
+        "amenity": "cafe",
+        "name": "Lời Của Gió",
+        "phone": "+84 333 437 231"
+      }
+    },
+    {
+      "type": "node",
+      "id": 13895630601,
+      "lat": 11.9378573,
+      "lon": 108.4837377,
+      "tags": {
+        "amenity": "cafe",
+        "check_date": "2026-05-30",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Tiệm Cà Phê Nhà Bên Đồi"
+      }
+    },
+    {
+      "type": "way",
+      "id": 1308586853,
+      "center": {
+        "lat": 11.9480703,
+        "lon": 108.4335713
+      },
+      "tags": {
+        "amenity": "cafe",
+        "building": "yes",
+        "cuisine": "coffee_shop",
+        "name": "Bi Coffee"
+      }
+    }
+  ]
+}

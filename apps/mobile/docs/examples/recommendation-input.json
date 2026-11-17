@@ -1,0 +1,14 @@
+{
+  "cityId": "dalat",
+  "tripDate": "2026-11-11",
+  "startHour": 8,
+  "durationHours": 8,
+  "budgetPerPersonVnd": 500000,
+  "categories": [],
+  "environmentPreference": "ANY",
+  "travelStyles": [],
+  "preferredPlaceIds": [],
+  "groupId": "mock-dalat",
+  "mode": "demo",
+  "limit": 2
+}

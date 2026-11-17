@@ -1,0 +1,35 @@
+{
+  "name": "@di-chung/mobile",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "web": "expo start --web --port 8081",
+    "build:web": "expo export --platform web",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:ui": "node tests/journey.mjs",
+    "handoff:generate": "tsx scripts/generate-handoff.ts",
+    "build:android:bundle": "expo export --platform android --output-dir dist-android-phase3"
+  },
+  "dependencies": {
+    "expo": "55.0.31",
+    "expo-status-bar": "~55.0.6",
+    "expo-secure-store": "~55.0.18",
+    "expo-location": "~55.1.14",
+    "expo-constants": "~55.0.17",
+    "expo-font": "~55.0.8",
+    "@expo/vector-icons": "15.0.2",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-native": "0.83.10",
+    "react-native-web": "~0.21.0",
+    "react-native-maps": "1.27.2",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~5.9.2"
+  }
+}

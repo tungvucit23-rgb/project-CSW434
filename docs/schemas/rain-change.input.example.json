@@ -1,0 +1,193 @@
+{
+  "task": "RAIN_CHANGE",
+  "demo": true,
+  "timezone": "Asia/Ho_Chi_Minh",
+  "groupConstraints": {
+    "date": "2026-10-17",
+    "startMinute": 480,
+    "endMinute": 1200,
+    "budgetPerPersonVnd": 100000,
+    "remainingBudgetVnd": 70000
+  },
+  "planningStartMinute": 540,
+  "fixedPrefixItems": [
+    {
+      "placeId": "demo_outdoor",
+      "startMinute": 480,
+      "endMinute": 540,
+      "reason": "Phù hợp giờ mở cửa và khung thời tiết được cung cấp.",
+      "factIds": [
+        "place:demo_outdoor",
+        "weather:2026-10-17T01:00:00.000Z"
+      ],
+      "travelMin": 0,
+      "costVnd": 30000
+    }
+  ],
+  "allowedPlaces": [
+    {
+      "id": "demo_outdoor_next",
+      "name": "Điểm ngoài trời kế tiếp minh họa",
+      "category": "Tham quan",
+      "environment": "OUTDOOR",
+      "openMinute": 480,
+      "closeMinute": 1080,
+      "durationMin": 60,
+      "priceVnd": 40000,
+      "factId": "place:demo_outdoor_next",
+      "dataQuality": "DEMO_DOCS_ONLY"
+    },
+    {
+      "id": "demo_indoor",
+      "name": "Điểm trong nhà minh họa",
+      "category": "Bảo tàng",
+      "environment": "INDOOR",
+      "openMinute": 480,
+      "closeMinute": 1080,
+      "durationMin": 60,
+      "priceVnd": 20000,
+      "factId": "place:demo_indoor",
+      "dataQuality": "DEMO_DOCS_ONLY"
+    }
+  ],
+  "currentPlan": [
+    {
+      "placeId": "demo_outdoor",
+      "startMinute": 480,
+      "endMinute": 540
+    },
+    {
+      "placeId": "demo_outdoor_next",
+      "startMinute": 555,
+      "endMinute": 615
+    }
+  ],
+  "preferences": [
+    {
+      "categories": [
+        "Bảo tàng"
+      ]
+    }
+  ],
+  "computedWeather": [
+    {
+      "source": "normalized-provider-data",
+      "time": "2026-10-17T01:00:00.000Z",
+      "rainMmH": 0,
+      "probabilityPct": 15,
+      "rainVotes": 0,
+      "validSources": 3,
+      "consensus": false,
+      "factId": "weather:2026-10-17T01:00:00.000Z"
+    },
+    {
+      "source": "normalized-provider-data",
+      "time": "2026-10-17T02:00:00.000Z",
+      "rainMmH": 3.2,
+      "probabilityPct": 85,
+      "rainVotes": 2,
+      "validSources": 3,
+      "consensus": true,
+      "factId": "weather:2026-10-17T02:00:00.000Z"
+    },
+    {
+      "source": "normalized-provider-data",
+      "time": "2026-10-17T03:00:00.000Z",
+      "rainMmH": 3.2,
+      "probabilityPct": 85,
+      "rainVotes": 2,
+      "validSources": 3,
+      "consensus": true,
+      "factId": "weather:2026-10-17T03:00:00.000Z"
+    }
+  ],
+  "travelMatrix": {
+    "travel:demo_outdoor:demo_outdoor_next": 15,
+    "travel:demo_outdoor:demo_indoor": 15,
+    "travel:demo_outdoor_next:demo_indoor": 15,
+    "travel:demo_indoor:demo_outdoor_next": 15
+  },
+  "facts": {
+    "place:demo_outdoor": {
+      "source": "database",
+      "placeId": "demo_outdoor",
+      "environment": "OUTDOOR",
+      "openMinute": 480,
+      "closeMinute": 1080,
+      "durationMin": 60,
+      "priceVnd": 30000
+    },
+    "place:demo_outdoor_next": {
+      "source": "database",
+      "placeId": "demo_outdoor_next",
+      "environment": "OUTDOOR",
+      "openMinute": 480,
+      "closeMinute": 1080,
+      "durationMin": 60,
+      "priceVnd": 40000
+    },
+    "place:demo_indoor": {
+      "source": "database",
+      "placeId": "demo_indoor",
+      "environment": "INDOOR",
+      "openMinute": 480,
+      "closeMinute": 1080,
+      "durationMin": 60,
+      "priceVnd": 20000
+    },
+    "travel:demo_outdoor:demo_outdoor_next": {
+      "source": "code:Haversine*1.3;25km/h;+5min;rounded5",
+      "minutes": 15
+    },
+    "travel:demo_outdoor:demo_indoor": {
+      "source": "code:Haversine*1.3;25km/h;+5min;rounded5",
+      "minutes": 15
+    },
+    "travel:demo_outdoor_next:demo_indoor": {
+      "source": "code:Haversine*1.3;25km/h;+5min;rounded5",
+      "minutes": 15
+    },
+    "travel:demo_indoor:demo_outdoor_next": {
+      "source": "code:Haversine*1.3;25km/h;+5min;rounded5",
+      "minutes": 15
+    },
+    "weather:2026-10-17T01:00:00.000Z": {
+      "source": "normalized-provider-data",
+      "time": "2026-10-17T01:00:00.000Z",
+      "rainMmH": 0,
+      "probabilityPct": 15,
+      "rainVotes": 0,
+      "validSources": 3,
+      "consensus": false
+    },
+    "weather:2026-10-17T02:00:00.000Z": {
+      "source": "normalized-provider-data",
+      "time": "2026-10-17T02:00:00.000Z",
+      "rainMmH": 3.2,
+      "probabilityPct": 85,
+      "rainVotes": 2,
+      "validSources": 3,
+      "consensus": true
+    },
+    "weather:2026-10-17T03:00:00.000Z": {
+      "source": "normalized-provider-data",
+      "time": "2026-10-17T03:00:00.000Z",
+      "rainMmH": 3.2,
+      "probabilityPct": 85,
+      "rainVotes": 2,
+      "validSources": 3,
+      "consensus": true
+    }
+  },
+  "trigger": {
+    "placeId": "demo_outdoor_next",
+    "weatherFactId": "weather:2026-10-17T02:00:00.000Z",
+    "minutesAhead": 30
+  },
+  "weatherReasonPolicy": {
+    "RAIN_INDOOR": "Ưu tiên không gian trong nhà vì các nguồn ghi nhận nguy cơ mưa.",
+    "UNKNOWN": "Ưu tiên tính khả thi; chưa đủ nguồn thời tiết để xác nhận nguy cơ mưa.",
+    "NO_CONSENSUS": "Các nguồn chưa ghi nhận đồng thuận nguy cơ mưa trong khung giờ dự kiến.",
+    "NEUTRAL": "Phù hợp giờ mở cửa và khung thời tiết được cung cấp."
+  }
+}

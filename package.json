@@ -1,0 +1,24 @@
+{
+  "name": "di-chung",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "concurrently -k -n API,APP -c green,blue \"npm run dev -w @di-chung/server\" \"npm run web -w @di-chung/mobile\"",
+    "server": "npm run dev -w @di-chung/server",
+    "web": "npm run web -w @di-chung/mobile",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test -w @di-chung/server",
+    "test:integration": "node scripts/smoke.mjs",
+    "test:llm": "tsx scripts/llm-contract.mts",
+    "test:ui": "node scripts/ui-smoke.mjs",
+    "test:map": "node scripts/map-ui.mjs",
+    "test:discovery-contract": "tsx scripts/recommendation-contract.mts",
+    "test:phase2": "node scripts/phase2-smoke.mjs",
+    "test:phase2-ui": "node scripts/phase2-ui.mjs",
+    "preview:ui": "node scripts/preview-ui.mjs",
+    "build:web": "npm run build:web -w @di-chung/mobile"
+  },
+  "devDependencies": {"concurrently": "^9.2.1", "@playwright/test": "^1.56.0"},
+  "engines": {"node": ">=22"}
+}

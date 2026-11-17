@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Đi Chung",
+    "slug": "di-chung",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F7F8F2",
+    "web": { "bundler": "metro", "name": "Đi Chung · Chuyến đi cùng nhau" },
+    "ios": { "supportsTablet": true },
+    "android": { "package": "vn.dichung.travel" },
+    "plugins": ["expo-secure-store"]
+  }
+}
